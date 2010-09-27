@@ -7,7 +7,9 @@
   :depends-on (#:split-sequence
 	       #:cl-ppcre
 	       #:babel)
-  :components ((:module :src
+  :components ((:static-file "voynich.asd")
+	       (:module :src
 			:components ((:file "packages")
 				     (:file "constants")
-				     (:file "xlator")))))
+				     (:file "xlator" :depends-on ("packages")))
+			:serial t)))

@@ -11,7 +11,7 @@ usefulness will be determined later by people who understand human
 languages a lot better than me. -BCJO"
 
 (defvar *voytrans* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voytrans1.2.txt")
-(defvar *voyscript* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voyn_101.txt")
+(defvar *voyscript* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voyn_102.txt")
 (defvar *transtable* (make-hash-table :test 'equal))
 
 (defun strip-string (string)
@@ -30,7 +30,7 @@ languages a lot better than me. -BCJO"
 		      (o (strip-spaces n)))
 		 (if (>= (length o) 3)
 		     (progn
-		       (format t "~A~%  0:~A 1:~A 2:~A~%" o (elt o 0) (elt o 1) (elt o 2))
+		       (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
 		       (cons (elt o 0) (elt o 2)))
 		     nil))
        if y collect y)))
@@ -76,8 +76,17 @@ languages a lot better than me. -BCJO"
     (loop for obj in line-obj-list
        :do (format s "~A | ~A~%~A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
 
+(defun print-interlinear-script (line-obj-list)
+  (loop for obj in line-obj-list
+     :do (format t "~A | ~A~%~A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
+
 (defun tochar (code)
+  "saves no work, but is clearer than code-char"
   (code-char code))
+
+(defun tocode (char)
+  "saves no work, but is clearer than char-code"
+  (char-code char))
 
 (defun xlate (line)
   (with-output-to-string (string)
@@ -117,3 +126,8 @@ languages a lot better than me. -BCJO"
 (defun print-hash-entry (key value)
   "dump out the key/values contained in a hashtable from maphash."
   (format t "The value associated with the key ~S is ~S~%" key value))
+
+(defun dump-matrix ()
+  "show the ascii->utf8 map in *transtable*. This should make
+debugging the xlation matrix a little clearer."
+  (maphash #'print-hash-entry *transtable*))

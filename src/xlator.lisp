@@ -11,7 +11,7 @@ usefulness will be determined later by people who understand human
 languages a lot better than me. -BCJO"
 
 (defvar *voytrans* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voytrans1.2.txt")
-(defvar *voyscript* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voyn_102.txt")
+(defvar *voyscript* #P "/home/fade/SourceCode/lisp/voynich/voyn_101/voyn_101.txt")
 (defvar *transtable* (make-hash-table :test 'equal))
 
 (defun strip-string (string)

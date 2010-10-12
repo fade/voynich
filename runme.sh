@@ -1,13 +1,6 @@
 #!/bin/bash
 set -e
 
-cd $HOME
-
-mkdir -p ZourceCode/lisp && cd ZourceCode/lisp
-
-git clone http://www.deepsky.com/~fade/voynich.git
-
-cd &&
 
 # change this var binding to change the location of the source in your
 # home dir. if you change this you also need to change the location in
@@ -15,6 +8,15 @@ cd &&
 # and other constants. I'll probably fix that so it's more abstract in
 # future versions.
 export TARG="SourceCode"
+
+cd $HOME
+
+mkdir -p $TARG/lisp && cd $TARG/lisp
+
+git clone http://www.deepsky.com/~fade/voynich.git
+
+cd &&
+
 
 # this is an sbcl init file.
 

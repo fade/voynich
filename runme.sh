@@ -39,6 +39,6 @@ echo "(ignore-errors (require 'sb-aclrepl))
 
 wget "http://quickstart.quicklisp.org/quicklisp.lisp"
 
-sbcl --no-user-init --load ~/quicklisp.lisp
+sbcl --no-userinit --load ~/quicklisp.lisp
 
 #(output-interlinear-file "/tmp/voynout" (make-line-objects *voyscript*))

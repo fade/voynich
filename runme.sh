@@ -3,15 +3,15 @@ set -e
 
 cd $HOME
 
-mkdir -p SourceCode/lisp && cd SourceCode/lisp
+mkdir -p ZourceCode/lisp && cd ZourceCode/lisp
 
 git clone http://www.deepsky.com/~fade/voynich.git
 
 cd &&
 
+export TARG="ZourceCode"
 
-# this is an sbcl init file. replace $(USER) with your uid, as lisp
-# doesn't understand vars in shell syntax.
+# this is an sbcl init file.
 
 echo "(ignore-errors (require 'sb-aclrepl))
 
@@ -20,20 +20,20 @@ echo "(ignore-errors (require 'sb-aclrepl))
 #+aclrepl
 (progn
   (setq sb-aclrepl:*max-history* 100)
-  (setf (sb-aclrepl:alias "asdc")
+  (setf (sb-aclrepl:alias \"asdc\")
 	#'(lambda (sys) (asdf:operate 'asdf:compile-op sys)))
-  (sb-aclrepl:alias "l" (sys) (asdf:operate 'asdf:load-op sys))
-  (sb-aclrepl:alias "t" (sys) (asdf:operate 'asdf:test-op sys))
-  ;; The 1 below means that two characaters ("up") are required
-  (sb-aclrepl:alias ("up" 1 "Use package") (package) (use-package package))
-  ;; The 0 below means only the first letter ("r") is required,
-  ;; such as ":r base64"
-  (sb-aclrepl:alias ("require" 0 "Require module") (sys) (require sys))
+  (sb-aclrepl:alias \"l\" (sys) (asdf:operate 'asdf:load-op sys))
+  (sb-aclrepl:alias \"t\" (sys) (asdf:operate 'asdf:test-op sys))
+  ;; The 1 below means that two characaters (\"up\") are required
+  (sb-aclrepl:alias (\"up\" 1 \"Use package\") (package) (use-package package))
+  ;; The 0 below means only the first letter (\"r\") is required,
+  ;; such as \":r base64\"
+  (sb-aclrepl:alias (\"require\" 0 \"Require module\") (sys) (require sys))
   (setq cl:*features* (delete :aclrepl cl:*features*)))
 
-(load "/home/$(USER)/quicklisp/setup.lisp")
+(load \"/home/$USER/quicklisp/setup.lisp\")
 (use-package :ql)
-(loop for path in  '(#P"/home/$(USER)/SourceCode/lisp/voynich/")
+(loop for path in  '(#P\"/home/$USER/$TARG/lisp/voynich/\")
      :do (pushnew path asdf:*central-registry*))" > ~/.sbclrc
 
 

@@ -9,7 +9,12 @@ git clone http://www.deepsky.com/~fade/voynich.git
 
 cd &&
 
-export TARG="ZourceCode"
+# change this var binding to change the location of the source in your
+# home dir. if you change this you also need to change the location in
+# voynich/xlate.lisp where the code looks for the translation matrix
+# and other constants. I'll probably fix that so it's more abstract in
+# future versions.
+export TARG="SourceCode"
 
 # this is an sbcl init file.
 

@@ -77,11 +77,11 @@ languages a lot better than me. -BCJO"
   "EX: (output-interlinear-file '/path/to/output' (make-line-objects *voyscript*))"
   (with-open-file (s filespec :direction :output :if-exists :supersede)
     (loop for obj in line-obj-list
-       :do (format s "~A | ~A~%~A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
+       :do (format s "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
 
 (defun print-interlinear-script (line-obj-list)
   (loop for obj in line-obj-list
-     :do (format t "~A | ~A~%~A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
+     :do (format t "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
 
 (defun tochar (code)
   "saves no work, but is clearer than code-char"
@@ -98,10 +98,10 @@ languages a lot better than me. -BCJO"
 	    for out = (gethash key *transtable*)
 	    :do (progn
 		  (if out
-		      (if (listp out)
-			  (format string "~{~A~}" (mapcar #'tochar out)) ;(code-char out)
-			  (format string "~A" (code-char out))) ;(code-char out)
-		      (format string "~A" e))) ;(char-code e)
+		      (if (listp out) ; if we have a translation point, apply it
+			  (format string "~{~A~}" (mapcar #'tochar out)) ; compoun xlation
+			  (format string "~A" (code-char out))) ; single char xlation
+		      (format string "~A" e))) ; otherwise just output the original character.
        :finally (return string))))
 
 

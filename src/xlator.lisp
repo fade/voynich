@@ -14,11 +14,16 @@ languages a lot better than me. -BCJO"
 
 (defvar *voytrans* (merge-pathnames "voytrans1.2.txt" *tbase*))
 
+(defvar *voygroup* (merge-pathnames "voygroup.txt" *tbase*))
+
 (defvar *voyscript* (merge-pathnames "voyn_101.txt" *tbase*))
+
 (defvar *transtable* (make-hash-table :test 'equal))
 
+(defvar *tloaded* nil)
+
 (defun strip-string (string)
-  (string-trim " " string))
+  (string-trim " ^Z" string))
 
 (defun strip-spaces (string-list)
   (mapcar #'strip-string string-list))
@@ -55,11 +60,23 @@ languages a lot better than me. -BCJO"
     (declare (ignore indx))
     (setf (xline line) xl)))
 
-(defun make-mline (text)
-  (let* ((bl (breaktag text))
-	 (idx (car bl))
-	 (line (cdr bl)))
-    (make-instance 'manuscript-line :index idx :rawline line)))
+(defclass voygroup ()
+  ((index
+    :initarg :index :accessor gindex)
+   (voytext
+    :initarg :voytext :accessor voytext)
+   (xtext
+    :initarg :xtext :accessor xtext)))
+
+(defmethod initialize-instance :after ((group voygroup) &key)
+  "set the xtext slot of the voygroup class for this instance with the
+   tranlated representation of the group encoding from the voytext101
+   format"
+  ;; (format t "nilly willy, ~A." (voytext group))
+  (let* ((rawg (voytext group))
+	 (xl (xlate rawg)))
+    ;; (format t "index: ~A raw: ~A xlat: ~A~%" (gindex group) rawg xl)
+    (setf (xtext group) xl)))
 
 (defun breaktag (line)
   (if (stringp line)
@@ -68,10 +85,35 @@ languages a lot better than me. -BCJO"
 	rplist)
       nil))
 
+(defun make-mline (text)
+  (let* ((bl (breaktag text))
+	 (idx (car bl))
+	 (line (cdr bl)))
+    (make-instance 'manuscript-line :index idx :rawline line)))
+
+;; (defun breakgroup (line)
+;;   (if (strinp line)
+;;       (let* ((breakup (cl-ppcre:split "(^.*\,.*)" line :with-registers-p t))
+;; 	     ()))))
+
 (defun make-line-objects (filespec)
   (with-open-file (s filespec :direction :input :external-format :latin-1)
     (loop for x = (read-line s nil) while x
        :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
+
+(defun make-mgroup (text)
+  (if (stringp text)
+      (let* ((it (strip-string text))
+	     (breakup (cl-ppcre:split  "(\,)" it :with-registers-p t))
+	     (idx (elt breakup 4))
+	     (group (elt breakup 0)))
+	;; (format t "~D || ~A~%" (length breakup) breakup)
+	(make-instance 'voygroup :index idx :voytext group))))
+
+(defun make-group-objects (filespec)
+  (with-open-file (s filespec :direction :input :external-format :latin-1)
+    (loop for x = (read-line s nil) while x
+	 :collect (make-mgroup x))))
 
 (defun output-interlinear-file (filespec line-obj-list)
   "EX: (output-interlinear-file '/path/to/output' (make-line-objects *voyscript*))"
@@ -112,17 +154,21 @@ languages a lot better than me. -BCJO"
      ;for stripped = (strip-spaces )
      do (let ((a ascii)
 	      (u utf8))
-	  (format t "======[ ~D ]======~%" i)
+	  (format t "======[ CodePoint: ~D ]======~%" i)
 	  (format t "~A~%" a)
 	  (format t "~A~%" u)
 	  (force-output)
-	  (if (and u (>= (length u) 5))
-	      (setf u (split-sequence #\, u)))
+	  (if (and u (>= (length u) 5)) ;; this codepoint maps to more than one unicode char.
+	      (progn
+		(format t "[[ ~A ]]~%" u)
+		(setf u (split-sequence #\, u))))
 	  (if (and (listp u) (>= (length u) 2))
 	      (setf (gethash a *transtable*) (mapcar #'string->number u))
 	      (setf (gethash a *transtable*) (string->number u))
 	      ) ; (format t "~S ||  ~{ ~S ~}~%" a (mapcar #'parse-integer u))
-	  )))
+	  ))
+  (setf *tloaded* t)
+  *tloaded*)
 
 
 
@@ -134,3 +180,16 @@ languages a lot better than me. -BCJO"
   "show the ascii->utf8 map in *transtable*. This should make
 debugging the xlation matrix a little clearer."
   (maphash #'print-hash-entry *transtable*))
+
+(defun output-voygroup-file (filespec group-obj-list)
+  "Emit a file to a stream opened on filespec containing a csv tripple
+  for every line in the voygroup.txt format file."
+  (cond
+    (*tloaded* (with-open-file (s filespec :direction :output :if-exists :supersede)
+		 (progn
+		   (pprint  "{{BANG BANG}}")
+		   (loop for obj in group-obj-list
+		      :do (format t "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
+		      :do (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
+			))))
+    (t (error "no sex in a translation table."))))

@@ -92,7 +92,7 @@ languages a lot better than me. -BCJO"
     (make-instance 'manuscript-line :index idx :rawline line)))
 
 ;; (defun breakgroup (line)
-;;   (if (strinp line)
+;;   (if (stringp line)
 ;;       (let* ((breakup (cl-ppcre:split "(^.*\,.*)" line :with-registers-p t))
 ;; 	     ()))))
 

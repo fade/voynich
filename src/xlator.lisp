@@ -97,7 +97,7 @@ languages a lot better than me. -BCJO"
 ;; 	     ()))))
 
 (defun make-line-objects (filespec)
-  (with-open-file (s filespec :direction :input :external-format :latin-1)
+  (with-open-file (s filespec :direction :input :external-format :utf-8)
     (loop for x = (read-line s nil) while x
        :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
 
@@ -105,13 +105,13 @@ languages a lot better than me. -BCJO"
   (if (stringp text)
       (let* ((it (strip-string text))
 	     (breakup (cl-ppcre:split  "(\,)" it :with-registers-p t))
-	     (idx (elt breakup 4))
+	     (idx (car (last breakup)))
 	     (group (elt breakup 0)))
-	;; (format t "~D || ~A~%" (length breakup) breakup)
+	(format t "~D || ~A~%" (length breakup) breakup)
 	(make-instance 'voygroup :index idx :voytext group))))
 
 (defun make-group-objects (filespec)
-  (with-open-file (s filespec :direction :input :external-format :latin-1)
+  (with-open-file (s filespec :direction :input :external-format :utf-8)
     (loop for x = (read-line s nil) while x
 	 :collect (make-mgroup x))))
 

@@ -97,7 +97,7 @@ languages a lot better than me. -BCJO"
 ;; 	     ()))))
 
 (defun make-line-objects (filespec)
-  (with-open-file (s filespec :direction :input :external-format :utf-8)
+  (with-open-file (s filespec :direction :input :external-format :latin-1)
     (loop for x = (read-line s nil) while x
        :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
 
@@ -193,7 +193,7 @@ debugging the xlation matrix a little clearer."
   for every line in the voygroup.txt format file."
   (cond
     (*tloaded* (with-open-file (s filespec :direction :output :if-exists :supersede)
-		 (loop for k from 1
+		 (loop for k from 0
 		      for obj in group-obj-list
 		      :do
 			(if obj
@@ -203,3 +203,13 @@ debugging the xlation matrix a little clearer."
 			      ))))
 	       )
     (t (error "no sex in a translation table."))))
+
+(defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))
+  "this function will output a gonkulated glossary stub in
+   /tmp/voybar.baz unless it is given a different path at its callsite."
+  (output-voygroup-file targ (make-group-objects *voygroup*)))
+
+(defun run-this-gonk-function (&key (targ "/tmp/voynich-interlinear.gonk"))
+  "this function will output a gonkulated xlation of the voynich
+   interlinear file pointed to by *voyscript*"
+  (output-interlinear-file targ (make-line-objects *voyscript*)))

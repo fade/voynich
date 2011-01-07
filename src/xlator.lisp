@@ -193,12 +193,13 @@ debugging the xlation matrix a little clearer."
   for every line in the voygroup.txt format file."
   (cond
     (*tloaded* (with-open-file (s filespec :direction :output :if-exists :supersede)
-		 (progn
-		   (pprint  "{{BANG BANG}}")
-		   (loop for k from 1
+		 (loop for k from 1
 		      for obj in group-obj-list
-			:if obj
-		      :do (format t "[~D]~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
-		      :do (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
-			))))
+		      :do
+			(if obj
+			    (progn
+			      (format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
+			      (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
+			      ))))
+	       )
     (t (error "no sex in a translation table."))))

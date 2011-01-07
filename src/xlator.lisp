@@ -12,9 +12,9 @@ languages a lot better than me. -BCJO"
 
 (defvar *tbase* (merge-pathnames "SourceCode/lisp/voynich/voyn_101/" (user-homedir-pathname)))
 
-(defvar *voytrans* (merge-pathnames "voytrans1.2.txt" *tbase*))
+(defvar *voytrans* (merge-pathnames "voytrans1.23.txt" *tbase*))
 
-(defvar *voygroup* (merge-pathnames "voygroup.txt" *tbase*))
+(defvar *voygroup* (merge-pathnames "voygroup_UTF-8.txt" *tbase*))
 
 (defvar *voyscript* (merge-pathnames "voyn_101.txt" *tbase*))
 
@@ -107,8 +107,12 @@ languages a lot better than me. -BCJO"
 	     (breakup (cl-ppcre:split  "(\,)" it :with-registers-p t))
 	     (idx (car (last breakup)))
 	     (group (elt breakup 0)))
-	(format t "~D || ~A~%" (length breakup) breakup)
-	(make-instance 'voygroup :index idx :voytext group))))
+	(if (>= (length breakup) 3)
+	    (progn
+	      (format t "~D || ~A~%" (length breakup) breakup)
+	      (make-instance 'voygroup :index idx :voytext group)))
+	
+	)))
 
 (defun make-group-objects (filespec)
   (with-open-file (s filespec :direction :input :external-format :utf-8)
@@ -141,7 +145,7 @@ languages a lot better than me. -BCJO"
 	    :do (progn
 		  (if out
 		      (if (listp out) ; if we have a translation point, apply it
-			  (format string "~{~A~}" (mapcar #'tochar out)) ; compoun xlation
+			  (format string "~{~A~}" (mapcar #'tochar out)) ; compound xlation
 			  (format string "~A" (code-char out))) ; single char xlation
 		      (format string "~A" e))) ; otherwise just output the original character.
        :finally (return string))))
@@ -170,7 +174,10 @@ languages a lot better than me. -BCJO"
   (setf *tloaded* t)
   *tloaded*)
 
-
+(defun run-object-list (objlist &optional (stream t))
+  (loop for k from 1
+     for i in objlist do
+       (format stream "==[~D]~%~A~%~A~%" k i (describe i))))
 
 (defun print-hash-entry (key value)
   "dump out the key/values contained in a hashtable from maphash."
@@ -188,8 +195,10 @@ debugging the xlation matrix a little clearer."
     (*tloaded* (with-open-file (s filespec :direction :output :if-exists :supersede)
 		 (progn
 		   (pprint  "{{BANG BANG}}")
-		   (loop for obj in group-obj-list
-		      :do (format t "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
+		   (loop for k from 1
+		      for obj in group-obj-list
+			:if obj
+		      :do (format t "[~D]~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
 		      :do (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
 			))))
     (t (error "no sex in a translation table."))))

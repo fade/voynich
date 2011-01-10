@@ -86,6 +86,7 @@ languages a lot better than me. -BCJO"
       nil))
 
 (defun make-mline (text)
+  "return a filled instance of the manuscript-line class."
   (let* ((bl (breaktag text))
 	 (idx (car bl))
 	 (line (cdr bl)))
@@ -97,11 +98,14 @@ languages a lot better than me. -BCJO"
 ;; 	     ()))))
 
 (defun make-line-objects (filespec)
+  "return a list of manuscript-line objects representing each line of
+   the voyn_101 text located by filespec"
   (with-open-file (s filespec :direction :input :external-format :latin-1)
     (loop for x = (read-line s nil) while x
        :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
 
 (defun make-mgroup (text)
+  "return a filled instance of the voygroup class"
   (if (stringp text)
       (let* ((it (strip-string text))
 	     (breakup (cl-ppcre:split  "(\,)" it :with-registers-p t))
@@ -110,11 +114,11 @@ languages a lot better than me. -BCJO"
 	(if (>= (length breakup) 3)
 	    (progn
 	      (format t "~D || ~A~%" (length breakup) breakup)
-	      (make-instance 'voygroup :index idx :voytext group)))
-	
-	)))
+	      (make-instance 'voygroup :index idx :voytext group))))))
 
 (defun make-group-objects (filespec)
+  "return a list of voygroup objects representing each group entry in
+   the voygroup glossary file located by filespec."
   (with-open-file (s filespec :direction :input :external-format :utf-8)
     (loop for x = (read-line s nil) while x
 	 :collect (make-mgroup x))))

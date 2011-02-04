@@ -203,9 +203,7 @@ debugging the xlation matrix a little clearer."
 			(if obj
 			    (progn
 			      (format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
-			      (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj))
-			      ))))
-	       )
+			      (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj)))))))
     (t (error "no sex in a translation table."))))
 
 (defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))

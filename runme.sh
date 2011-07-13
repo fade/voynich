@@ -44,7 +44,7 @@ echo "(ignore-errors (require 'sb-aclrepl))
      :do (pushnew path asdf:*central-registry*))" > ~/.sbclrc
 
 
-wget "http://quickstart.quicklisp.org/quicklisp.lisp"
+wget "http://beta.quicklisp.org/quicklisp.lisp"
 
 sbcl --no-userinit --load ~/quicklisp.lisp
 

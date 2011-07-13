@@ -35,12 +35,16 @@ languages a lot better than me. -BCJO"
   (with-open-file (s filespec :direction :input)
     (loop for x = (read-line s nil) while x
        for y = (let* ((n (split-sequence:split-sequence #\@ x))
-		      (o (strip-spaces n)))
+		      (o (strip-spaces n))
+		      (fcount 0))
 		 (if (>= (length o) 3)
 		     (progn
 		       (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
 		       (cons (elt o 0) (elt o 2)))
-		     nil))
+		     (progn
+		       (format t "BUMMER, Skipping:: ~A" o)
+		       (incf fcount)
+		       (values nil fcount))))
        if y collect y)))
 
 (defclass manuscript-line ()
@@ -54,10 +58,8 @@ languages a lot better than me. -BCJO"
 (defmethod initialize-instance :after ((line manuscript-line) &key)
   "set the xline slot in the manuscript-line class after we initialise the
    instance with the values from the input manuscript."
-  (let* ((indx (line-index line))
-	 (rawl (raw-line line))
+  (let* ((rawl (raw-line line))
 	 (xl (xlate rawl)))
-    (declare (ignore indx))
     (setf (xline line) xl)))
 
 (defclass voygroup ()
@@ -106,7 +108,8 @@ languages a lot better than me. -BCJO"
 
 (defun make-mgroup (text)
   "return a filled instance of the voygroup class"
-  (if (stringp text)
+  (if (and (stringp text)
+	   (not (zerop (length text))))
       (let* ((it (strip-string text))
 	     (breakup (cl-ppcre:split  "(\,)" it :with-registers-p t))
 	     (idx (car (last breakup)))
@@ -114,14 +117,17 @@ languages a lot better than me. -BCJO"
 	(if (>= (length breakup) 3)
 	    (progn
 	      (format t "~D || ~A~%" (length breakup) breakup)
-	      (make-instance 'voygroup :index idx :voytext group))))))
+	      (make-instance 'voygroup :index idx :voytext group))))
+      (format t "BARK:: ~A~%" text)))
 
 (defun make-group-objects (filespec)
   "return a list of voygroup objects representing each group entry in
    the voygroup glossary file located by filespec."
   (with-open-file (s filespec :direction :input :external-format :utf-8)
     (loop for x = (read-line s nil) while x
-	 :collect (make-mgroup x))))
+       if (> (length x) 0)
+       ;; :do (format t "#<~A ~A ~A>~%" "stinger:: " x (type-of x))
+       :collect (make-mgroup x))))
 
 (defun output-interlinear-file (filespec line-obj-list)
   "EX: (output-interlinear-file '/path/to/output' (make-line-objects *voyscript*))"
@@ -150,7 +156,7 @@ languages a lot better than me. -BCJO"
 		  (if out
 		      (if (listp out) ; if we have a translation point, apply it
 			  (format string "~{~A~}" (mapcar #'tochar out)) ; compound xlation
-			  (format string "~A" (code-char out))) ; single char xlation
+			  (format string "~A" (tochar out))) ; single char xlation
 		      (format string "~A" e))) ; otherwise just output the original character.
        :finally (return string))))
 
@@ -196,14 +202,15 @@ debugging the xlation matrix a little clearer."
   "Emit a file to a stream opened on filespec containing a csv tripple
   for every line in the voygroup.txt format file."
   (cond
-    (*tloaded* (with-open-file (s filespec :direction :output :if-exists :supersede)
-		 (loop for k from 0
-		      for obj in group-obj-list
-		      :do
-			(if obj
-			    (progn
-			      (format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
-			      (format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj)))))))
+    (*tloaded*
+     (with-open-file (s filespec :direction :output :if-exists :supersede)
+       (loop for k from 0
+	  for obj in group-obj-list
+	  :do
+	  (if obj
+	      (progn
+		(format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
+		(format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj)))))))
     (t (error "no sex in a translation table."))))
 
 (defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))

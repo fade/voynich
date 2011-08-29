@@ -221,7 +221,8 @@ debugging the xlation matrix a little clearer."
 		      (<:as-html (raw-line obj))
 		      (<:br)
 		      (<:pre (<:as-html (line-index obj)))
-		      (<:span (<:as-html (xline obj)))
+		      (<:span :style "font-family: Helvetica,Arial,sans-serif;"
+			      (<:as-html (xline obj)))
 		      (<:br))
 	  :do (format s "~&~A" htm))))
 

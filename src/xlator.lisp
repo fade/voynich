@@ -129,12 +129,6 @@ languages a lot better than me. -BCJO"
        ;; :do (format t "#<~A ~A ~A>~%" "stinger:: " x (type-of x))
        :collect (make-mgroup x))))
 
-(defun output-interlinear-file (filespec line-obj-list)
-  "EX: (output-interlinear-file '/path/to/output' (make-line-objects *voyscript*))"
-  (with-open-file (s filespec :direction :output :if-exists :supersede)
-    (loop for obj in line-obj-list
-       :do (format s "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
-
 (defun print-interlinear-script (line-obj-list)
   (loop for obj in line-obj-list
      :do (format t "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
@@ -212,6 +206,29 @@ debugging the xlation matrix a little clearer."
 		(format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
 		(format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj)))))))
     (t (error "no sex in a translation table."))))
+
+(defun output-interlinear-file (filespec line-obj-list)
+  "EX: (output-interlinear-file '/path/to/output' (make-line-objects *voyscript*))"
+  (with-open-file (s filespec :direction :output :if-exists :supersede)
+    (loop for obj in line-obj-list
+       :do (format s "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
+
+(defun output-interlinear-html (filespec line-obj-list)
+  (with-open-file (s filespec :direction :output :if-exists :supersede)
+    (loop for obj in line-obj-list
+	  for htm = (with-yaclml-output-to-string
+		      (<:pre (<:as-html (line-index obj)))
+		      (<:as-html (raw-line obj))
+		      (<:br)
+		      (<:pre (<:as-html (line-index obj)))
+		      (<:span (<:as-html (xline obj)))
+		      (<:br))
+	  :do (format s "~&~A" htm))))
+
+(defun run-this-html-function (&key (targ "/tmp/voybar.html"))
+  "this function will output a gonkulated html-ized xlation of the
+  voynich interlinear file pointed to by *voyscript*"
+  (output-interlinear-html targ (make-line-objects *voyscript*)))
 
 (defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))
   "this function will output a gonkulated glossary stub in

@@ -4,7 +4,8 @@
   (:nicknames :vuser)
   (:use :cl :split-sequence
 	:cl-ppcre
-	:babel)
+	:babel
+	:yaclml)
   (:export
    ;; #:*voytrans*
    ;; #:*voyscript*

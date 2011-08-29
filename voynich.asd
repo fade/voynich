@@ -6,7 +6,8 @@
   :serial t
   :depends-on (#:split-sequence
 	       #:cl-ppcre
-	       #:babel)
+	       #:babel
+	       #:yaclml)
   :components ((:static-file "voynich.asd")
 	       (:module :src
 			:components ((:file "packages")

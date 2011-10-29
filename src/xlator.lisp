@@ -157,6 +157,10 @@ languages a lot better than me. -BCJO"
 
 (defun load-table ()
   "load the hash table *transtable* with the translation matrix we plan to use."
+  (setf (gethash (format nil "~A" (char-code #\.)) *transtable*) (char-code #\Space))
+  (setf (gethash (format nil "~A" (char-code #\,)) *transtable*) (char-code #\Space))
+  (setf (gethash (format nil "~A" (char-code #\-)) *transtable*) (char-code #\Newline))
+  (setf (gethash (format nil "~A" (char-code #\=)) *transtable*) (list (char-code #\Newline) (char-code #\Newline)))
   (loop for i from 1
      for (ascii . utf8) in (readvoy->codepoints *voytrans*)
      ;for stripped = (strip-spaces )
@@ -226,6 +230,13 @@ debugging the xlation matrix a little clearer."
 		      (<:br))
 	  :do (format s "~&~A" htm))))
 
+(defun output-transgonk-file (filespec line-obj-list)
+  "output a transgonkulated 1:1 xlation of the voynich."
+  (with-open-file (s filespec :direction :output :if-exists :supersede)
+    (loop for obj in line-obj-list
+	  for gline = (xline obj)
+	  :do (format s "~A" gline))))
+
 (defun run-this-html-function (&key (targ "/tmp/voybar.html"))
   "this function will output a gonkulated html-ized xlation of the
   voynich interlinear file pointed to by *voyscript*"
@@ -240,3 +251,8 @@ debugging the xlation matrix a little clearer."
   "this function will output a gonkulated xlation of the voynich
    interlinear file pointed to by *voyscript*"
   (output-interlinear-file targ (make-line-objects *voyscript*)))
+
+(defun run-this-simple-gonk-function (&key (targ "/tmp/voynich-gonk.gonk"))
+  "this function will output a gonkulated xlation of the voynich in a
+  1:1 mapping of the lines in the actual manuscript."
+  (output-transgonk-file targ (make-line-objects *voyscript*)))

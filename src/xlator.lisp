@@ -147,8 +147,9 @@ languages a lot better than me. -BCJO"
 	    for key = (format nil "~S" (char-code e))
 	    for out = (gethash key *transtable*)
 	    :do (progn
-		  (if out
-		      (if (listp out) ; if we have a translation point, apply it
+                  ;; (format t "~&ZAP -- ~A | ~A" key out)
+		  (if out ; if we have a translation point, apply it
+		      (if (listp out) 
 			  (format string "~{~A~}" (mapcar #'tochar out)) ; compound xlation
 			  (format string "~A" (tochar out))) ; single char xlation
 		      (format string "~A" e))) ; otherwise just output the original character.

@@ -18,6 +18,10 @@ languages a lot better than me. -BCJO"
 
 (defvar *voyscript* (merge-pathnames "voyn_101.txt" *tbase*))
 
+(defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*))
+
+(defvar *pretranstable* (readpretrans->codepoints *pretrans*))
+
 (defvar *transtable* (make-hash-table :test 'equal))
 
 (defvar *tloaded* nil)
@@ -31,21 +35,78 @@ languages a lot better than me. -BCJO"
 (defun string->number (string)
   (parse-integer string :junk-allowed t))
 
+(define-condition matrix-parse-error (error)
+  ((message :initarg :message :reader matrix-error-message)
+   (line-number :initarg :line-number :reader matrix-error-line-number)
+   (line :initarg :line :reader matrix-error-line)))
+
+(defmethod print-object ((object matrix-parse-error) stream)
+  (print-unreadable-object (object stream :type t :identity t)
+    (format stream "~@[L~A ~]~S~@[: ~S~]"
+            (matrix-error-line-number object)
+            (matrix-error-message object)
+            (matrix-error-line object))))
+
+(defun matrix-error (message &key value ln)
+  (error 'matrix-parse-error
+         :message message
+         :line-number ln
+         :line value))
+
 (defun readvoy->codepoints (filespec)
   (with-open-file (s filespec :direction :input)
-    (loop for x = (read-line s nil) while x
-       for y = (let* ((n (split-sequence:split-sequence #\@ x))
-		      (o (strip-spaces n))
-		      (fcount 0))
-		 (if (>= (length o) 3)
-		     (progn
-		       (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
-		       (cons (elt o 0) (elt o 2)))
-		     (progn
-		       (format t "BUMMER, Skipping:: ~A" o)
-		       (incf fcount)
-		       (values nil fcount))))
-       if y collect y)))
+    (loop
+      for fcount from 1
+      for x = (read-line s nil)
+      while x
+      for y = (let* ((n (split-sequence:split-sequence #\@ x))
+                     (o (strip-spaces n))
+                     (fcount 0))
+                (cond
+                  ((string= (first o) "")
+                   (progn
+                     (format t "~&translation file contained an empty line at line #: ~D" fcount)
+                     nil)) ;; skip empty lines
+                  ((>= (length o) 3)
+                   (progn
+                     (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
+                     (cons (elt o 0) (elt o 2))))
+                  (t
+                   (matrix-error (format nil "translation matrix failed to parse line:~%::~A|~A" x o)
+                                 :value x
+                                 :ln fcount))))
+      if y collect y)))
+
+(defun readpretrans->codepoints (filespec)
+  (with-open-file (s filespec :direction :input)
+    (loop
+      for fcount from 1
+      for x = (read-line s nil)
+      while x
+      for y = (let* ((n (split-sequence:split-sequence #\@ x))
+                         (o (strip-spaces n)))
+                ;; (format t "~&~S|~S~%" x o)
+                (cond
+                  ((string= (first o) "")
+                   (progn
+                     (format t "~&translation file contained an empty line at line #: ~D" fcount)
+                     nil)) ;; skip empty lines
+                  ((= (length o) 4)
+                   (progn
+                     (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A 3rd=>~A~%"
+                             o (elt o 0) (elt o 1) (elt o 2) (elt o 3))
+                     (cons (elt o 1) (elt o 2))))
+                  ((= (length o) 3)
+                   (progn
+                     (format t "&WHOLE:: ~A~% 0th=>~A 1st=>~A 2nd=>~A~%"
+                             o (elt o 0) (elt o 1) (elt o 2))
+                     (cons (elt o 1) (elt o 2))))
+                  (t
+                   (matrix-error (format nil "translation matrix failed to parse line:~%::~A|~A" x o)
+                                 :value x
+                                 :ln fcount))))
+      if y collect y)))
+
 
 (defclass manuscript-line ()
   ((index
@@ -58,7 +119,7 @@ languages a lot better than me. -BCJO"
 (defmethod initialize-instance :after ((line manuscript-line) &key)
   "set the xline slot in the manuscript-line class after we initialise the
    instance with the values from the input manuscript."
-  (let* ((rawl (raw-line line))
+  (let* ((rawl (pretran (raw-line line)))
 	 (xl (xlate rawl)))
     (setf (xline line) xl)))
 
@@ -104,7 +165,7 @@ languages a lot better than me. -BCJO"
    the voyn_101 text located by filespec"
   (with-open-file (s filespec :direction :input :external-format :latin-1)
     (loop for x = (read-line s nil) while x
-       :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
+          :collect (make-mline x)))) ; (xlate (cdr (breaktag x)))
 
 (defun make-mgroup (text)
   "return a filled instance of the voygroup class"
@@ -125,13 +186,13 @@ languages a lot better than me. -BCJO"
    the voygroup glossary file located by filespec."
   (with-open-file (s filespec :direction :input :external-format :utf-8)
     (loop for x = (read-line s nil) while x
-       if (> (length x) 0)
-       ;; :do (format t "#<~A ~A ~A>~%" "stinger:: " x (type-of x))
-       :collect (make-mgroup x))))
+          if (> (length x) 0)
+            ;; :do (format t "#<~A ~A ~A>~%" "stinger:: " x (type-of x))
+            :collect (make-mgroup x))))
 
 (defun print-interlinear-script (line-obj-list)
   (loop for obj in line-obj-list
-     :do (format t "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
+        :do (format t "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj))))
 
 (defun tochar (code)
   "saves no work, but is clearer than code-char"
@@ -144,17 +205,30 @@ languages a lot better than me. -BCJO"
 (defun xlate (line)
   (with-output-to-string (string)
     (loop for e across line
-	    for key = (format nil "~S" (char-code e))
-	    for out = (gethash key *transtable*)
-	    :do (progn
-                  ;; (format t "~&ZAP -- ~A | ~A" key out)
-		  (if out ; if we have a translation point, apply it
-		      (if (listp out) 
-			  (format string "~{~A~}" (mapcar #'tochar out)) ; compound xlation
-			  (format string "~A" (tochar out))) ; single char xlation
-		      (format string "~A" e))) ; otherwise just output the original character.
-       :finally (return string))))
+          for key = (format nil "~S" (char-code e))
+          for out = (gethash key *transtable*)
+          :do (progn
+                ;; (format t "~&ZAP -- ~A | ~A" key out)
+                (if out ; if we have a translation point, apply it
+                    (if (listp out) 
+                        (format string "~{~A~}" (mapcar #'tochar out)) ; compound xlation
+                        (format string "~A" (tochar out))) ; single char xlation
+                    (format string "~A" e))) ; otherwise just output the original character.
+          :finally (return string))))
 
+(defun pretran (voyline)
+  (let ((*break-on-signals* t))
+    (loop
+      ;; for i from 1
+      with vline = (copy-seq voyline)
+      for (fromstr . tostr) in *pretranstable*
+      when (and fromstr tostr)
+           do
+              (let ((from fromstr)
+                    (to (format nil "~A" (tochar (string->number tostr)))))
+                (setf vline (regex-replace-all from vline to)))
+              
+      finally (return vline))))
 
 (defun load-table ()
   "load the hash table *transtable* with the translation matrix we plan to use."

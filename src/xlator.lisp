@@ -72,7 +72,7 @@ languages a lot better than me. -BCJO"
                      (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
                      (cons (elt o 0) (elt o 2))))
                   (t
-                   (matrix-error (format nil "translation matrix failed to parse line:~%::~A|~A" x o)
+                   (matrix-error (format nil "translation matrix failed to parse line::~A | ~A" x o)
                                  :value x
                                  :ln fcount))))
       if y collect y)))
@@ -102,7 +102,7 @@ languages a lot better than me. -BCJO"
                              o (elt o 0) (elt o 1) (elt o 2))
                      (cons (elt o 1) (elt o 2))))
                   (t
-                   (matrix-error (format nil "translation matrix failed to parse line:~%::~A|~A" x o)
+                   (matrix-error (format nil "translation matrix failed to parse line::~A | ~A" x o)
                                  :value x
                                  :ln fcount))))
       if y collect y)))

@@ -20,7 +20,7 @@ languages a lot better than me. -BCJO"
 
 (defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*))
 
-(defvar *pretranstable* (readpretrans->codepoints *pretrans*))
+(defvar *pretranstable* nil)
 
 (defvar *transtable* (make-hash-table :test 'equal))
 
@@ -106,6 +106,8 @@ languages a lot better than me. -BCJO"
                                  :value x
                                  :ln fcount))))
       if y collect y)))
+
+(setf *pretranstable* (readpretrans->codepoints *pretrans*))
 
 
 (defclass manuscript-line ()

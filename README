@@ -1,0 +1,12 @@
+$ sbcl
+CL-USER(1): (ql:quickload :voynich)
+; Loading "voynich"
+[package voynich-user]..
+(:VOYNICH)
+CL-USER(2): (in-package :vuser)
+(load-table)
+(run-this-gonk-function)
+(run-this-gloss-function)
+(run-this-html-function)
+(sb-ext:exit)
+$ cp /tmp/voy* /home/merovech/public_html/voynich/

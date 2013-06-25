@@ -1,171 +1,171 @@
-33@!@116@t (front) common form, isolated, initial, medial, final (once)
+33@!@100@d (front) common form, isolated, initial, medial, final (once)
 35@#@100@d (unaspirated) common form, initial, medial
 36@$@108@l tilted allograph, isolated, initial, medial, final
-37@%@116@t (front) allograph, isolated, initial, medial, final (once)
+37@%@100@d (front) allograph, isolated, initial, medial, final (once)
 38@&@98@b allograph, isolated, initial, medial, final
 40@(@105@i / w / y allograph, isolated (rare), initial, medial (rare), final
 42@*@110@n allograph, isolated, medial, final
 43@+@100@d (unaspirated) allograph with ring
-49@1@353@š / ʃ common form, isolated, initial, medial, final (once)
-50@2@116@t (front) allograph with hook, isolated, initial, medial, final (rare)
-51@3@116@t (front) allograph with hook variant form, isolated, initial, medial
-52@4@626@ɲ / ni / niy / ñ common form, isolate (rare), initial
-53@5@116@t (front) allograph with hook variant form, initial, medial, final
+49@1@353@š common form, isolated, initial, medial, final (once)
+50@2@100@d (front) allograph with hook, isolated, initial, medial, final (rare)
+51@3@100@d (front) allograph with hook variant form, isolated, initial, medial
+52@4@110,105@ni (niy) common form, isolate (rare), initial
+53@5@100@d (front) allograph with hook variant form, initial, medial, final
 54@6@98@b allograph, initial, final
-55@7@102@f (bilabial) allograph, isolated, initial, medial, final
+55@7@102@f (bilabial) common form, isolated, initial, medial, final
 56@8@98@b common form, isolated, initial, medial, final
-57@9@105@i / w / y common form, isolate, initial, medial, final
-65@A@117@u / ū / w allograph written with a Latin alpha <http://en.wikipedia.org/wiki/Latin_alpha>, isolate, initial, medial, final (sometimes paired as Aa) [ZB thinks this is a palatal k]
-66@B@116,116,103@ttg ligature, final
-67@C@952@θ / th (voiceless dental fricative) common form, initial, medial, final
-68@D@952,103@θg / thg ligature, final
-69@E@95@glyph radical (review visually for interpretation, often connected with an eroded glyph or lapsus calami in the Voynich 101 transcription system), isolate (rare), initial
+57@9@105@i (w, y) common form, isolate, initial, medial, final
+65@A@105@i variant, isolate, initial, medial, final (sometimes paired as Aa) [ZB thinks this is a palatal k]
+66@B@63@? ligature, final
+67@C@116,104@th (voiceless dental fricative) common form, initial, medial, final
+68@D@63@? ligature, final
+69@E@63@? glyph radical (review visually for interpretation, often connected with an eroded glyph or lapsus calami in the Voynich 101 transcription system), isolate (rare), initial
 70@F@116@t (back) common form, initial, medial
 71@G@100@d (back) allograph with curl, initial, medial, final (once)
-72@H@103,688@gʰ (aspirated) common form, initial, medial, final
-73@I@331@ŋ / ng ligature common form [often paired as IN / m(ngge / ngga)], medial, final (once)
+72@H@103,104@gh (aspirated) common form, initial, medial, final
+73@I@110,103@ng ligature common form, medial, final (once)
 74@J@100@d common form, initial, medial
 75@K@106@j common form, isolate, initial, medial, final
-76@L@107,688@kʰ (aspirated) initial, medial, final (once)
-77@M@114,331@rŋ / rengge / rangga ligature, final
-78@N@103@g common prefinal form (usually followed by implied a or e ending), final
-80@P@114,110@rn / ran / ren ligature, final
+76@L@107,104@kh (aspirated) initial, medial, final (once)
+77@M@114,110,103,103@rngg ligature, final
+78@N@103@g common form (usually followed by implied a or e ending), final
+80@P@114,110@rn ligature, final
 81@Q@110@n allograph, isolate, initial, medial, final
-82@R@100,688@dʰ (aspirated) allograph, initial, medial
-83@S@107,108@kl / kele / kala ligature (review visually for interpretation next to other glyphs), medial (with -i genitive participle), final (with implied a or e)
-84@T@98@b allograph, isolate, initial, medial, final
-85@U@116,688@tʰ (aspirated) common form without curl, initial, medial
-86@V@648,865,642@ʈ͡ʂ / zh for Mandarin loan-words initial, medial
-87@W@99@c (Pinyin q) allograph, initial, medial
-88@X@115@s common form, isolate, initial, medial, final
+82@R@100,104@dh (aspirated) allograph, initial, medial
+83@S@107,108@kl ligature, medial (with -i genitive participle), final (with implied a or e)
+84@T@63@? isolate, initial, medial, final
+85@U@116@t common form without curl, initial, medial
+86@V@100,122@dz for Mandarin loan-words initial, medial
+87@W@99@c allograph, initial, medial
+88@X@115@s allograph, isolate, initial, medial, final
 89@Y@115@s allograph with broken stem, medial, final
-90@Z@331,115@ŋs / ngs ligature, initial, medial, final
-92@\@678@t͡s /  ts "right-walking" Korean jieut (ㅈ) allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, medial, final
-97@a@117@u / ũ / w common form written with a Latin alpha <http://en.wikipedia.org/wiki/Latin_alpha>, isolate, initial, medial, final
-98@b@115@s allograph with vertical stem, isolate, initial, medial, final
-99@c@107@k common form, isolate (once), initial, medial, final
-100@d@116@t allograph variant (ZB thinks this is emphatic t), initial, medial, final (rare)
+90@Z@110,103,115@ngs ligature, initial, medial, final
+92@\@116,115@ ts "right-walking" Korean jieut allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, medial, final
+97@a@117@u / v / w common form written with a Latin alpha <http://en.wikipedia.org/wiki/Latin_alpha>, isolate, initial, medial, final
+98@b@101@e, isolate, initial, medial, final
+99@c@107@k (front) common form, isolate (once), initial, medial, final
+100@d@116,107@tk ligature (ZB thinks this is emphatic t), initial, medial, final (rare)
 101@e@109@m common form, isolate, initial, medial, final
-102@f@967@χ / h (back) / uvular h / ch allograph with curl, sometimes stands for c in OM, isolate (rare), initial, medial, final (rare)
-103@g@611@ɣ (voiced velar fricative) allograph with curl, sometimes used for c
+102@f@99,104@ch allograph with curl, sometimes stands for c in OM, isolate (rare), initial, medial, final (rare)
+103@g@104@h (front) allograph with curl, sometimes used for c
 104@h@99@c common form, isolate (rare), initial, medial, final
-105@i@114@r common form (not to be confused with Voynich 101 system transcription variant ii which is ŋ), medial, final (few)
-106@j@611@ɣ (voiced velar fricative) allograph, sometimes used for c, isolate (once), initial, medial, final
-107@k@720@ː (modifier letter triangular colon) / h / e unvoiced h common form, isolate (rare), initial, medial, final
-108@l@103,688,107@gʰk (aspirated g + k) ligature (ZB thinks this is k /q velar), initial
-109@m@331,103@ŋg / ngg prefinal ligature, isolate (once), medial (rare), final
+105@i@114@r (uvular) common form, medial, final (few)
+106@j@104@h (front) allograph, sometimes used for c, isolate (once), initial, medial, final
+107@k@104@h (back) common form, isolate (rare), initial, medial, final
+108@l@107@k (back) common form, initial
+109@m@110,103,103@ngg prefinal ligature, isolate (once), medial (rare), final
 110@n@114,103@rg prefinal ligature, isolate (once), medial (rare), final
 111@o@111@o (someimes oo) common form, isolate, initial, medial, final
 112@p@110@n common form, isolate (rare), initial (once), medial (rare), final
-113@q@331,110@ŋgn / nggan / nggen ligature, final
-114@r@116,688,107@tʰk (aspirated t + k) ligature, medial
+113@q@110,103,110@nggn ligature, final
+114@r@116,104@th, medial
 115@s@108@l common form, isolate, initial, medial, final
 116@t@108@l allograph with broken stroke, isolate (once), initial, medial, final
-117@u@967@χ / h (back) / uvular h / ch common form without curl, sometimes stands for c in OM, isolate (rare), initial, medial, final
-118@v@103,688@gʰ (aspirant) allograph partially eroded, initial, medial, final
-119@w@104@h (back) / uvular h / ch allograph, sometimes appears as c in OM, isolate (rare), initial, medial
+117@u@99,104@ch common form without curl, sometimes stands for c in OM, isolate (rare), initial, medial, final
+118@v@103,104@gh (aspirant) allograph partially eroded, initial, medial, final
+119@w@99,104@ch allograph, sometimes appears as c in OM, isolate (rare), initial, medial
 120@x@115@s allograph with curl, isolate (rare), initial, medial, final
 121@y@115@s common form, isolate, initial, medial, final
 122@z@114,115@rs ligature, medial (prefinal), final
-124@|@678@t͡s /  ts "standing" Korean jieut (ㅈ) allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, medial, final Korean jieut (ㅈ) allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, initial, medial, final
-149@•@106,107@jk ligature allograph with final hook
+124@|@116,115@ts "standing" Korean jieut allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, initial, medial, final
+149@•@106,100@jd ligature allograph with final hook
 150@–@106@j allograph (partially eroded)
-151@—@100,111@do / doo ligature
+151@—@100,111@do / doo (back d) ligature
 153@™@116@t allograph partially eroded
 154@š@95@incensed semisextile incensed dingbat
 155@›@95@semisextile dingbat
 156@œ@111@o / oo allograph with vertical bar, stricken lapsus calami?
-158@ž@95@?
-161@¡@103@g allograph
+158@ž@63@?
+161@¡@63@? (maybe g allograph)
 162@¢@95@^ allograph dingbat
-163@£@108@l allograph partially eroded
-164@¤@95@? horizontal bar with sicilicus, glyph radical
+163@£@63@?
+164@¤@63@? horizontal bar with sicilicus, glyph radical
 165@¥@95@dotted hook dingbat
-166@¦@115@s allograph partially eroded
-168@¨@95@"ear"?
-169@©@109@m allograph partially eroded
-170@ª@105@i / w / y allograph partially eroded
-171@«@105@i / w / y allograph partially eroded
-172@¬@95@?
-173@−@110@n allograph partially eroded
-174@®@95@? (unique)
-175@¯@98@b allograph
-176@°@95@? (unique)
-177@±@98@b allograph
-178@²@105@i / w / y allograph
-179@³@95@? (unique)
-180@´@331@ŋ / ng prefinal allograph form
-181@μ@114,331@rŋ / rng ligature (first stroke is interpreted as r, the next two as ng)
-182@¶@331,103@uŋg / ungga / ungge / ūngge / ūngga / wangga / wengge allograph
-183@·@331,103@uŋg / ungga / wangga allograph with hook
-184@¸@626@ɲ / ni / niy / ñ allograph
-185@¹@626,111@ɲo / nio / niyo / ño ligature with macron
-186@º@626,111@ɲo / nio / niyo / ño ligature with horn/hook
-187@»@105@i / w / y allograph with macron
+166@¦@63@?
+168@¨@63@?
+169@©@63@?
+170@ª@63@?
+171@«@63@?
+172@¬@63@?
+173@ˆ@110@n allograph partially eroded
+174@®@63@? (unique)
+175@¯@63@?
+176@°@63@? (unique)
+177@±@63@?
+178@²@63@?
+179@³@63@? (unique)
+180@´@110,103@ng prefinal allograph form
+181@µ@114,110,103@rng ligature (first stroke is interpreted as r, the next two as ng)
+182@¶@117,110,103,103@ungg allograph
+183@·@117,110,103,103@ungg allograph with hook
+184@¸@110,105@ni allograph
+185@¹@110,105,111@nio ligature with macron
+186@º@110,105,111@nio ligature with horn/hook
+187@»@105@i (w / y) allograph with macron
 188@¼@109@m allograph
 189@½@98@b sideways allograph (ZB thinks this is a p)
-190@¾@105@i / w / y allograph with horn
-191@¿@105@i / w / y allograph with hook
-192@À@117@u / ū / w / f allograph with ring
-193@Á@117,103,95@ug / ūg prefinal ligature with implied final a or e
-194@Â@111@o / oo allograph with hook
-195@Ã@111@o / oo allograph with macron
-196@Ä@111@o / oo allograph with inverted breve
-197@Å@95@glyph radical with hook
+190@¾@105@i (w / y) allograph with horn
+191@¿@105@i  (w / y) allograph with hook
+192@À@117@u  (v / w / f) allograph with ring
+193@Á@117,63@u? ligature
+194@Â‚@111@o (oo) allograph with hook
+195@Ã@111@o  (oo) allograph with macron
+196@Ä@111@o (oo) allograph with inverted breve
+197@Å@95@_ glyph radical with hook
 198@Æ@95@glyph radical
-199@Ç@678@t͡s / ts "left-walking" Korean jieut (ㅈ) allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, medial, final
-200@È@95@unique dingbat
+199@Ç@116,115@ts "left-walking" Korean jieut allograph (j in modern Korean, pronounced ts in the fifteenth century, as it still is in North Korea), isolate, medial, final
+200@È@95@unique dingbat (not a glyph radical?)
 201@É@95@dotted bent line dingbat
-202@Ê@95@dingbat sideways t
-203@Ë@95@dingbat sideways t allograph
-204@Ì@95@dotted box dingbat
-206@Î@117,115x@us / ūs / wasa / wese prefinal ligature with implied final a or e
-207@Ï@103@g final allograph, only occurs as dÏ, e.g. 4ohdÏ
+202@Ê@95@dingbat sideways tau
+203@Ë@95@dingbat sideways tau allograph
+204@Ì@95@accented box dingbat
+206@Î@63@?
+207@Ï@163@?
 208@Ð@107@k allograph with ring
-209@Ñ@107,108,107@klk ligature, unique appearance as 1ohÑ9 in folio 8 recto, line 18
-210@Ò@952,952@θθ / thth (voiceless dental fricative) ligature
-211@Ó@103,688@gʰ (aspirated) allograph with hook
-212@Ô@111,105@oi / ooi / ooy ligature
-213@Õ@122@z with hook
-214@Ö@100@d (?) allograph with caret
-215@×@100,39@d (back) allograph
+209@Ñ@107,108,107@klk ligature, unique appearance in folio 8 recto, line 18
+210@Ò@116,104,116,104@thth (voiceless dental fricative) ligature
+211@Ó@100,103,104@dgh ligature
+212@Ô@111,105@oi (ooi, ooy) ligature
+213@Õ@100,122@dz
+214@Ö@100@d (front) (?) allograph with caret
+215@×@100@d (front) (?) allograph
 216@Ø@100,105@di ligature with ring
-217@Ù@116,95@ti (front t + i) ligature with hook
+217@Ù@100,105@di (front d + i) ligature with hook
 218@Ú@353@š with vertical bar, maybe lapsus calami
-219@Û@116,111@to ligature
+219@Û@100,111@do ligature
 220@Ü@353,111@šo ligature
-221@Ý@100@d with acute ring
-222@Þ@95@?
-223@ß@353,117@šu / šū ligature
+221@Ý@100@d (front) with acute ring
+222@Þ@100,107@dk ligature
+223@ß@353,117@šu ligature
 224@à@353@š with dot
-225@á@95@? unique glyph
-226@â@100,39@d'
-227@ã@353,95,109@š[ae]m ligature
-228@ä@116@t (aspirant) allograph
-229@å@103,105@gi front consonant ligature
+225@á@122@ž (?) unique glyph
+226@â@100@d (back)
+227@ã@100@d (front) (may be ligature)
+228@ä@116,115@ts
+229@å@103,104,105@ghi (aspirate g) consonant ligature
 230@æ@106@j allograph partially eroded, unique
-231@ç@103,111@go ligature
+231@ç@103,104,111@gho ligature
 232@è@106@j allograph artially eroded
-233@é@104@h (voiced) with stem hook, sometimes stands for c in OM, unique
-234@ê@116@t (front) allograph partially eroded
-235@ë@107,39@k' with hook
+233@é@104@h (front) with stem hook, sometimes stands for c in OM, unique
+234@ê@116@t allograph, partially eroded
+235@ë@103,104,100@ghd ligature
 236@ì@95@warm-up doodle dingbat
 237@í@106,111@jo / joo ligature partially eroded
 238@î@100@d (front) partially eroded
-239@ï@107,95,100@kd / k[ae]d ligature? (unique)
-240@ð@95@? unique
-241@ñ@106,95,108@j[ae]l ligature
-242@ò@104@h (unvoiced) allograph, sometimes silent in OM
-243@ó@103,111@go ligature with hook
-244@ô@104@h (unvoiced) allograph, sometimes silent in OM
-245@õ@106,121@jy ligature
-246@ö@103,117@gu / gū front consonant ligature
-247@÷@105,103@ig ligature
-248@ø@104,116,117@itu / itū ligature
-249@ù@104,107,39@ik' ligature
-250@ú@611@ɣ (voiced velar fricative) allograph with stem fish-hook, sometimes used for c, unique, may be a lapsus calami
+239@ï@100,100@dd (front/back) ligature? (unique)
+240@ð@63@? unique
+241@ñ@106,108@jl ligature
+242@ò@104@h (back) allograph
+243@ó@63@?
+244@ô@104@h (unvoiced) allograph
+245@õ@106,105@ji ligature
+246@ö@103,104,117@ghu ligature
+247@÷@105,103,104@igh ligature
+248@ø@104,116,117@itu ligature
+249@ù@104,107@ik ligature
+250@ú@104@h (front) allograph with stem fish-hook, sometimes used for c, unique, may be a lapsus calami
 251@û@99@c allograph
-252@ü@99@c small allograph
-253@ý@106,111@jo / joo ligature partially eroded
-254@þ@106,111@jo / joo ligature partially eroded
-255@ÿ@103,688@gʰ (aspirated) allograph partially eroded
+252@ü@99@c short allograph
+253@ý@106,111@jo (joo) ligature
+254@þ@106,111@jo (joo) ligature partially eroded
+255@ÿ@103,104@gh allograph partially eroded

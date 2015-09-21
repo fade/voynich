@@ -1,6 +1,6 @@
 See the project wiki for more details.
 
-Here are the standard functions to run once the pre-translation table and the main phonetic matrix table have been updated (/voynich/voyn_101/pretrans.txt and /voynich/voyn_101/voytrans1.23.txt respectively:
+Here are the standard functions to run once the pre-translation table and the main phonetic matrix table have been updated (/voynich/voyn_101/pretrans.txt and /voynich/voyn_101/voytrans1.23.txt respectively):
 
 $ sbcl
 CL-USER(1): (ql:quickload :voynich)

@@ -1,1 +1,1 @@
-(in-package :voynich-user)
+(in-package :voynich)

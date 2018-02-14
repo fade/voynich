@@ -1,15 +1,17 @@
 (in-package :cl-user)
 
-(cl:defpackage #:voynich-user
+(cl:defpackage #:voynich
   (:nicknames :vuser)
   (:use :cl :split-sequence
 	:cl-ppcre
+        :voynich.app-utils
 	:babel
 	:yaclml)
   (:export
    ;; #:*voytrans*
    ;; #:*voyscript*
    ;; #:*transtable*
+   #:-main
    #:manuscript-line
    #:make-mline
    #:breaktag

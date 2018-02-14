@@ -1,7 +1,15 @@
-(in-package :voynich-user)
+;; -*-lisp-*-
+;; (defpackage :voynich
+;;             (:use :cl)
+;;             (:use :voynich.app-utils)
+;;             (:export :-main))
+
+(in-package :voynich)
+
+;; (in-package :voynich-user)
 
 "The basic assumption here is that the interlinear encoding of the
-voynich manuscript is a representation of a phonetic writing system
+voynich manuscript is a representation in a phonetic writing system
 indigenous to north eastern china, called Manchu. In the brave old
 world of the 21st century we can represent this in the more expressive
 IPA alphabet, or in Manchu itself, which both have codepoints in the
@@ -10,21 +18,29 @@ literally swap the ascii encoding for the unicode encoding. Its
 usefulness will be determined later by people who understand human
 languages a lot better than me. -BCJO"
 
-(defvar *tbase* (merge-pathnames "SourceCode/lisp/voynich/voyn_101/" (user-homedir-pathname)))
+(defvar *tbase* (merge-pathnames "SourceCode/lisp/voynich/voyn_101/" (user-homedir-pathname))
+  "this directory holds the voyn_101 voynich transliteration.")
 
-(defvar *voytrans* (merge-pathnames "voytrans1.23.txt" *tbase*))
+(defvar *voytrans* (merge-pathnames "voytrans1.23.txt" *tbase*)
+  "this is the path to the actual voyn_101 transliteration file.")
 
 (defvar *voygroup* (merge-pathnames "voygroup_UTF-8.txt" *tbase*))
 
 (defvar *voyscript* (merge-pathnames "voyn_101.txt" *tbase*))
 
-(defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*))
+(defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*)
+  "a table of codepoint fixups, applied before the principal gonkulation pass.")
+
+(defparameter *html-template*
+  (alexandria:read-file-into-string
+   (merge-pathnames "SourceCode/lisp/voynich/html/voynich-template.html" (user-homedir-pathname))))
 
 (defvar *pretranstable* nil)
 
 (defvar *transtable* (make-hash-table :test 'equal))
 
-(defvar *tloaded* nil)
+(defvar *tloaded* nil
+  "has the translation table been loaded?")
 
 (defun strip-string (string)
   (string-trim " ^Z" string))
@@ -294,18 +310,34 @@ debugging the xlation matrix a little clearer."
     (loop for obj in line-obj-list
        :do (format s "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
 
+;; (defun bung (template filespec)
+;;   (with-output-to-string (s  template)
+;;     (loop for obj in line-obj-list
+;;           for htm = (with-yaclml-output-to-string
+;;                       (<:pre (<:as-html (line-index obj)))
+;;                       (<:as-html (raw-line obj))
+;;                       (<:br)
+;;                       (<:pre (<:as-html (line-index obj)))
+;;                       (<:span :style "font-family: Helvetica,Arial,sans-serif;"
+;;                               (<:as-html (xline obj)))
+;;                       (<:br))
+;;           :do (format s "~&~A" htm))))
+
 (defun output-interlinear-html (filespec line-obj-list)
   (with-open-file (s filespec :direction :output :if-exists :supersede)
-    (loop for obj in line-obj-list
-	  for htm = (with-yaclml-output-to-string
-		      (<:pre (<:as-html (line-index obj)))
-		      (<:as-html (raw-line obj))
-		      (<:br)
-		      (<:pre (<:as-html (line-index obj)))
-		      (<:span :style "font-family: Helvetica,Arial,sans-serif;"
-			      (<:as-html (xline obj)))
-		      (<:br))
-	  :do (format s "~&~A" htm))))
+    (let ((html-template *html-template*))
+      (assert *html-template*)
+      (format s html-template)
+      (loop for obj in line-obj-list
+            for htm = (with-yaclml-output-to-string
+                        (<:pre (<:as-html (line-index obj)))
+                        (<:as-html (raw-line obj))
+                        (<:br)
+                        (<:pre (<:as-html (line-index obj)))
+                        (<:span :style "font-family: Helvetica,Arial,sans-serif;"
+                                (<:as-html (xline obj)))
+                        (<:br))
+            :do (format s "~&~A" htm)))))
 
 (defun output-transgonk-file (filespec line-obj-list)
   "output a transgonkulated 1:1 xlation of the voynich."
@@ -317,19 +349,37 @@ debugging the xlation matrix a little clearer."
 (defun run-this-html-function (&key (targ "/tmp/voybar.html"))
   "this function will output a gonkulated html-ized xlation of the
   voynich interlinear file pointed to by *voyscript*"
-  (output-interlinear-html targ (make-line-objects *voyscript*)))
+  (format t "Writing html formated interlinear gonk translit to ~A ... " targ)
+  (output-interlinear-html targ (make-line-objects *voyscript*))
+  (format t "[Done]~%"))
 
 (defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))
   "this function will output a gonkulated glossary stub in
    /tmp/voybar.baz unless it is given a different path at its callsite."
-  (output-voygroup-file targ (make-group-objects *voygroup*)))
+  (format t "Writing a glossary to ~A ... " targ)
+  (output-voygroup-file targ (make-group-objects *voygroup*))
+  (format t "[Done]~%"))
 
 (defun run-this-gonk-function (&key (targ "/tmp/voynich-interlinear.gonk"))
   "this function will output a gonkulated xlation of the voynich
    interlinear file pointed to by *voyscript*"
-  (output-interlinear-file targ (make-line-objects *voyscript*)))
+  (format t "Writing gonkulated translit to ~A ... " targ)
+  (output-interlinear-file targ (make-line-objects *voyscript*))
+  (format t "[Done]~%"))
 
 (defun run-this-simple-gonk-function (&key (targ "/tmp/voynich-gonk.gonk"))
   "this function will output a gonkulated xlation of the voynich in a
   1:1 mapping of the lines in the actual manuscript."
-  (output-transgonk-file targ (make-line-objects *voyscript*)))
+  (format t "Writing simple interlinear translit to ~A ... " targ)
+  (output-transgonk-file targ (make-line-objects *voyscript*))
+  (format t "[Done]~%"))
+
+
+(defun -main (&optional args)
+  (declare (ignorable args))
+  (load-table)
+  (run-this-html-function)
+  (run-this-gloss-function)
+  (run-this-gonk-function)
+  (run-this-simple-gonk-function))
+

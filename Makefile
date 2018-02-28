@@ -10,6 +10,7 @@ $(OUT): buildapp *.lisp quicklisp-manifest.txt
 				--eval '(push "$(ROOT_DIR)/" asdf:*central-registry*)' \
 				--load-system $(PACKAGE) \
 				--eval '($(PACKAGEUTILS)::internal-disable-debugger)' \
+				--compress-core \
 				--output $(OUT) --entry $(PACKAGE):$(ENTRY)
 
 quicklisp-manifest.txt: *.asd

@@ -1,8 +1,4 @@
 ;; -*-lisp-*-
-;; (defpackage :voynich
-;;             (:use :cl)
-;;             (:use :voynich.app-utils)
-;;             (:export :-main))
 
 (in-package :voynich)
 

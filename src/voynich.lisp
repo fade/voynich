@@ -306,34 +306,22 @@ debugging the xlation matrix a little clearer."
     (loop for obj in line-obj-list
        :do (format s "~9A | ~A~%~9A | ~A~%~%" (line-index obj) (raw-line obj) (line-index obj) (xline obj)))))
 
-;; (defun bung (template filespec)
-;;   (with-output-to-string (s  template)
-;;     (loop for obj in line-obj-list
-;;           for htm = (with-yaclml-output-to-string
-;;                       (<:pre (<:as-html (line-index obj)))
-;;                       (<:as-html (raw-line obj))
-;;                       (<:br)
-;;                       (<:pre (<:as-html (line-index obj)))
-;;                       (<:span :style "font-family: Helvetica,Arial,sans-serif;"
-;;                               (<:as-html (xline obj)))
-;;                       (<:br))
-;;           :do (format s "~&~A" htm))))
-
 (defun output-interlinear-html (filespec line-obj-list)
   (with-open-file (s filespec :direction :output :if-exists :supersede)
-    (let ((html-template *html-template*))
+    (let ((html-template *html-template*)
+          (html-body (with-output-to-string (body)
+                       (loop for obj in line-obj-list
+                             for htm = (with-yaclml-output-to-string
+                                         (<:pre (<:as-html (line-index obj)))
+                                         (<:as-html (raw-line obj))
+                                         (<:br)
+                                         (<:pre (<:as-html (line-index obj)))
+                                         (<:span :style "font-family: Helvetica,Arial,sans-serif;"
+                                                 (<:as-html (xline obj)))
+                                         (<:br))
+                             :do (format body "~&~A" htm)))))
       (assert *html-template*)
-      (format s html-template)
-      (loop for obj in line-obj-list
-            for htm = (with-yaclml-output-to-string
-                        (<:pre (<:as-html (line-index obj)))
-                        (<:as-html (raw-line obj))
-                        (<:br)
-                        (<:pre (<:as-html (line-index obj)))
-                        (<:span :style "font-family: Helvetica,Arial,sans-serif;"
-                                (<:as-html (xline obj)))
-                        (<:br))
-            :do (format s "~&~A" htm)))))
+      (format s html-template html-body))))
 
 (defun output-transgonk-file (filespec line-obj-list)
   "output a transgonkulated 1:1 xlation of the voynich."
@@ -370,6 +358,7 @@ debugging the xlation matrix a little clearer."
   (output-transgonk-file targ (make-line-objects *voyscript*))
   (format t "[Done]~%"))
 
+(defsyn)
 
 (defun -main (&optional args)
   (declare (ignorable args))

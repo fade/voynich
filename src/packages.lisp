@@ -2,11 +2,14 @@
 
 (cl:defpackage #:voynich
   (:nicknames :vuser)
-  (:use :cl :split-sequence
-	:cl-ppcre
-        :voynich.app-utils
-	:babel
-	:yaclml)
+  (:use
+   :cl
+   :split-sequence
+   :cl-ppcre
+   :voynich.app-utils
+   :babel
+   :yaclml
+   :net.didierverna.clon)
   (:export
    ;; #:*voytrans*
    ;; #:*voyscript*

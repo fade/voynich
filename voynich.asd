@@ -12,7 +12,8 @@
                #:alexandria
 	       #:cl-ppcre
 	       #:babel
-	       #:yaclml)
+	       #:yaclml
+               #:net.didierverna.clon)
   :pathname "./"
   :components ((:static-file "voynich.asd")
                (:file "app-utils")

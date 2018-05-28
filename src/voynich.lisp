@@ -358,8 +358,6 @@ debugging the xlation matrix a little clearer."
   (output-transgonk-file targ (make-line-objects *voyscript*))
   (format t "[Done]~%"))
 
-(defsyn)
-
 (defun -main (&optional args)
   (declare (ignorable args))
   (load-table)

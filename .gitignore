@@ -2,7 +2,7 @@
 *.pyc
 *.lx64fsl
 *.ods
-
+*.*\~
 /buildapp
 /gonk
 /quicklisp-manifest.txt

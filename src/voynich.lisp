@@ -81,7 +81,7 @@ languages a lot better than me. -BCJO"
                      nil)) ;; skip empty lines
                   ((>= (length o) 3)
                    (progn
-                     (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
+                     ;; (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A~%" o (elt o 0) (elt o 1) (elt o 2))
                      (cons (elt o 0) (elt o 2))))
                   (t
                    (matrix-error (format nil "translation matrix failed to parse line::~A | ~A" x o)
@@ -105,13 +105,13 @@ languages a lot better than me. -BCJO"
                      nil)) ;; skip empty lines
                   ((= (length o) 4)
                    (progn
-                     (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A 3rd=>~A~%"
-                             o (elt o 0) (elt o 1) (elt o 2) (elt o 3))
+                     ;; (format t "&WHOLE:: ~A~%  0th=>~A 1st=>~A 2nd=>~A 3rd=>~A~%"
+                     ;;         o (elt o 0) (elt o 1) (elt o 2) (elt o 3))
                      (cons (elt o 1) (elt o 2))))
                   ((= (length o) 3)
                    (progn
-                     (format t "&WHOLE:: ~A~% 0th=>~A 1st=>~A 2nd=>~A~%"
-                             o (elt o 0) (elt o 1) (elt o 2))
+                     ;; (format t "&WHOLE:: ~A~% 0th=>~A 1st=>~A 2nd=>~A~%"
+                     ;;         o (elt o 0) (elt o 1) (elt o 2))
                      (cons (elt o 1) (elt o 2))))
                   (t
                    (matrix-error (format nil "translation matrix failed to parse line::~A | ~A" x o)
@@ -191,7 +191,7 @@ languages a lot better than me. -BCJO"
 	     (group (elt breakup 0)))
 	(if (>= (length breakup) 3)
 	    (progn
-	      (format t "~D || ~A~%" (length breakup) breakup)
+	      ;; (format t "~D || ~A~%" (length breakup) breakup)
 	      (make-instance 'voygroup :index idx :voytext group))))
       (format t "BARK:: ~A~%" text)))
 
@@ -255,13 +255,14 @@ languages a lot better than me. -BCJO"
      ;for stripped = (strip-spaces )
      do (let ((a ascii)
 	      (u utf8))
-	  (format t "======[ CodePoint: ~D ]======~%" i)
-	  (format t "~A~%" a)
-	  (format t "~A~%" u)
-	  (force-output)
+          ;; vv Devel chaff. vv
+	  ;; (format t "======[ CodePoint: ~D ]======~%" i)
+	  ;; (format t "~A~%" a)
+	  ;; (format t "~A~%" u)
+	  ;; (force-output)
 	  (if (and u (>= (length u) 5)) ;; this codepoint maps to more than one unicode char.
 	      (progn
-		(format t "[[ ~A ]]~%" u)
+		;; (format t "[[ ~A ]]~%" u)
 		(setf u (split-sequence #\, u))))
 	  (if (and (listp u) (>= (length u) 2))
 	      (setf (gethash a *transtable*) (mapcar #'string->number u))
@@ -273,8 +274,8 @@ languages a lot better than me. -BCJO"
 
 (defun run-object-list (objlist &optional (stream t))
   (loop for k from 1
-     for i in objlist do
-       (format stream "==[~D]~%~A~%~A~%" k i (describe i))))
+        for i in objlist do
+          (format stream "==[~D]~%~A~%~A~%" k i (describe i))))
 
 (defun print-hash-entry (key value)
   "dump out the key/values contained in a hashtable from maphash."
@@ -296,7 +297,7 @@ debugging the xlation matrix a little clearer."
 	  :do
 	  (if obj
 	      (progn
-		(format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
+		;; (format t "[~D] ~A || ~A,~A,~A~%" k obj (voytext obj) (xtext obj) (gindex obj))
 		(format s "~A,~A,~A~%" (voytext obj) (xtext obj) (gindex obj)))))))
     (t (error "no sex in a translation table."))))
 
@@ -358,11 +359,29 @@ debugging the xlation matrix a little clearer."
   (output-transgonk-file targ (make-line-objects *voyscript*))
   (format t "[Done]~%"))
 
-(defun -main (&optional args)
-  (declare (ignorable args))
-  (load-table)
-  (run-this-html-function)
-  (run-this-gloss-function)
-  (run-this-gonk-function)
-  (run-this-simple-gonk-function))
+(defsynopsis (:postfix "BONK ... ")
+  (text :contents "A tool for transliteration, initially of the Voynich Manuscript.")
+  (group (:header "Immediate exit options:")
+         (flag :short-name "h" :long-name "help"
+               :description "Print this help and exit.")
+         (flag :short-name "v" :long-name "version"
+               :description "Print version number and exit."))
+  (group (:header "Path Options")
+         (path :long-name "outputdir"
+               :short-name "o"
+               :description "Path of the directory to contain gonk output. "
+               :argument-name "OUTPUTDIR"
+               :type :directory
+               :default-value #P "/tmp/")))
+
+(defun -main (&optional (argv nil))
+  (declare (ignorable argv))
+  (make-context)
+  (format t "~& ~D ARGV :: ~{~A~^ ~}~%" (length argv) argv)
+  (let* ((output-dir-path (make-pathname :defaults  (getopt :short-name "o"))))
+    (load-table)
+    (run-this-html-function)
+    (run-this-gloss-function)
+    (run-this-gonk-function)
+    (run-this-simple-gonk-function)))
 

@@ -18,8 +18,8 @@
   :components ((:static-file "voynich.asd")
                (:file "app-utils")
 	       (:module :src
-			:components ((:file "packages")
-				     (:file "voynich" :depends-on ("packages")))
-			:serial t)))
+		:components ((:file "packages")
+			     (:file "voynich" :depends-on ("packages")))
+		:serial t)))
 
 

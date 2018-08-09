@@ -149,7 +149,6 @@ languages a lot better than me. -BCJO"
   "set the xtext slot of the voygroup class for this instance with the
    tranlated representation of the group encoding from the voytext101
    format"
-  ;; (format t "nilly willy, ~A." (voytext group))
   (let* ((rawg (voytext group))
 	 (xl (xlate rawg)))
     ;; (format t "index: ~A raw: ~A xlat: ~A~%" (gindex group) rawg xl)
@@ -279,7 +278,7 @@ languages a lot better than me. -BCJO"
 
 (defun print-hash-entry (key value)
   "dump out the key/values contained in a hashtable from maphash."
-  (format t "The value associated with the key ~S is ~S~%" key value))
+  (format t "| ~S => ~S~%" key value))
 
 (defun dump-matrix ()
   "show the ascii->utf8 map in *transtable*. This should make
@@ -334,31 +333,60 @@ debugging the xlation matrix a little clearer."
 (defun run-this-html-function (&key (targ "/tmp/voybar.html"))
   "this function will output a gonkulated html-ized xlation of the
   voynich interlinear file pointed to by *voyscript*"
-  (format t "Writing html formated interlinear gonk translit to ~A ... " targ)
-  (output-interlinear-html targ (make-line-objects *voyscript*))
-  (format t "[Done]~%"))
+  (if (uiop:directory-pathname-p targ)
+      (let ((targ (merge-pathnames "voybar.html" targ)))
+        (ensure-directories-exist targ)
+        (format t "Writing html formated interlinear gonk translit to ~A ... " targ)
+        (output-interlinear-html targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))
+      (progn
+        (format t "Writing html formated interlinear gonk translit to ~A ... " targ)
+        (output-interlinear-html targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))))
 
-(defun run-this-gloss-function (&key (targ "/tmp/voybar.baz"))
+(defun run-this-gloss-function (&key (targ "/tmp/voybar.gloss"))
   "this function will output a gonkulated glossary stub in
-   /tmp/voybar.baz unless it is given a different path at its callsite."
-  (format t "Writing a glossary to ~A ... " targ)
-  (output-voygroup-file targ (make-group-objects *voygroup*))
-  (format t "[Done]~%"))
+   /tmp/voybar.gloss unless it is given a different path at its callsite."
+  (if (uiop:directory-pathname-p targ)
+      (let ((targ (merge-pathnames "voybar.gloss" targ)))
+        (ensure-directories-exist targ)
+        (format t "Writing a glossary to ~A ... " targ)
+        (output-voygroup-file targ (make-group-objects *voygroup*))
+        (format t "[Done]~%"))
+      (progn
+        (format t "Writing a glossary to ~A ... " targ)
+        (output-voygroup-file targ (make-group-objects *voygroup*))
+        (format t "[Done]~%"))))
 
 (defun run-this-gonk-function (&key (targ "/tmp/voynich-interlinear.gonk"))
   "this function will output a gonkulated xlation of the voynich
    interlinear file pointed to by *voyscript*"
-  (format t "Writing gonkulated translit to ~A ... " targ)
-  (output-interlinear-file targ (make-line-objects *voyscript*))
-  (format t "[Done]~%"))
+  (if (uiop:directory-pathname-p targ)
+      (let ((targ (merge-pathnames "voynich-interlinear.gonk" targ)))
+        (ensure-directories-exist targ)
+        (format t "Writing gonkulated translit to ~A ... " targ)
+        (output-interlinear-file targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))
+      (progn
+        (format t "Writing gonkulated translit to ~A ... " targ)
+        (output-interlinear-file targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))))
 
 (defun run-this-simple-gonk-function (&key (targ "/tmp/voynich-gonk.gonk"))
   "this function will output a gonkulated xlation of the voynich in a
   1:1 mapping of the lines in the actual manuscript."
-  (format t "Writing simple interlinear translit to ~A ... " targ)
-  (output-transgonk-file targ (make-line-objects *voyscript*))
-  (format t "[Done]~%"))
+  (if (uiop:directory-pathname-p targ)
+      (let ((targ (merge-pathnames "voynich-interlinear.gonk" targ)))
+        (ensure-directories-exist targ)
+        (format t "Writing gonkulated translit to ~A ... " targ)
+        (output-interlinear-file targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))
+      (progn
+        (format t "Writing gonkulated translit to ~A ... " targ)
+        (output-interlinear-file targ (make-line-objects *voyscript*))
+        (format t "[Done]~%"))))
 
+#|This synopsis establishes both the CLIui for this application, and provides for the help string.|#
 (defsynopsis (:postfix "BONK ... ")
   (text :contents "A tool for transliteration, initially of the Voynich Manuscript.")
   (group (:header "Immediate exit options:")
@@ -377,11 +405,18 @@ debugging the xlation matrix a little clearer."
 (defun -main (&optional (argv nil))
   (declare (ignorable argv))
   (make-context)
-  (format t "~& ~D ARGV :: ~{~A~^ ~}~%" (length argv) argv)
+  ;; (format t "~& ~D ARGV :: ~{~A~^ ~}~%" (length argv) argv)
+  (cond ((getopt :short-name "h")
+         (help)
+         (exit 0))
+        ((getopt :short-name "v")
+         (format t "Lisp: ~A, Version: ~A~%" (lisp-implementation-type) (lisp-implementation-version))
+         (exit 0)))
   (let* ((output-dir-path (make-pathname :defaults  (getopt :short-name "o"))))
+    (format t "~&Output directory: ~A~%" output-dir-path)
     (load-table)
-    (run-this-html-function)
-    (run-this-gloss-function)
-    (run-this-gonk-function)
-    (run-this-simple-gonk-function)))
+    (run-this-html-function :targ output-dir-path)
+    (run-this-gloss-function :targ output-dir-path)
+    (run-this-gonk-function :targ output-dir-path)
+    (run-this-simple-gonk-function :targ output-dir-path)))
 

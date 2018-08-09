@@ -11,9 +11,6 @@
    :yaclml
    :net.didierverna.clon)
   (:export
-   ;; #:*voytrans*
-   ;; #:*voyscript*
-   ;; #:*transtable*
    #:-main
    #:manuscript-line
    #:make-mline

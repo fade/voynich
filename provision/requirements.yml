@@ -1,0 +1,5 @@
+- src: https://github.com/SimpliField/ansible-node
+  name: SimpliField.node
+- src: https://github.com/weareinteractive/ansible-nginx
+  name: geerlingguy.nginx
+- name: Datadog.datadog

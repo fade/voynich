@@ -7,3 +7,5 @@
 /gonk
 /quicklisp-manifest.txt
 /slime.lisp
+/.vagrant/machines/default/virtualbox/action_provision
+/src/xlator.lisp

@@ -1,0 +1,38 @@
+---
+- hosts: ec2
+  tasks:
+    - name: Send notification message via Slack
+      run_once: true
+      local_action:
+        module: slack
+        domain: "neuranet-dev.slack.com"
+        token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
+        msg: ":airplane: Started db migration on {{target}}"
+        username: "Ansible"
+        icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"
+        link_names: 0
+        parse: 'none'
+
+- hosts: webservers
+  tasks:
+    - name: Run migration
+      run_once: true
+      command:
+      sudo: no
+      command: node_modules/.bin/knex migrate:latest chdir="{{www_dir}}/{{item}}{{branch_sub_folder | default()}}"
+      with_items:
+        - page-builder
+
+- hosts: ec2
+  tasks:
+    - name: Send notification message via Slack
+      run_once: true
+      local_action:
+        module: slack
+        domain: "neuranet-dev.slack.com"
+        token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
+        msg: ":ok_hand: Finished db migration on {{target}}"
+        username: "Ansible"
+        icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"
+        link_names: 0
+        parse: 'none'

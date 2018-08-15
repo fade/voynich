@@ -5,7 +5,7 @@
       run_once: true
       local_action:
         module: slack
-        domain: "neuranet-dev.slack.com"
+        domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
         msg: ":airplane: Started db migration on {{target}}"
         username: "Ansible"
@@ -29,7 +29,7 @@
       run_once: true
       local_action:
         module: slack
-        domain: "neuranet-dev.slack.com"
+        domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
         msg: ":ok_hand: Finished db migration on {{target}}"
         username: "Ansible"

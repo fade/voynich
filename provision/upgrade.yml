@@ -6,7 +6,7 @@
       tags: deploy
       local_action:
         module: slack
-        domain: "neuranet-dev.slack.com"
+        domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
         msg: ":rocket: Started deploying everything to {{target}} (page-builder SHA: {{commitHash}})"
         #color: warning
@@ -22,7 +22,7 @@
       tags: deploy_fast
       local_action:
         module: slack
-        domain: "neuranet-dev.slack.com"
+        domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
         msg: ":rocket: Started fast deploying everything to {{target}} (page-builder Branch: {{branch}} SHA: {{commitHash}})"
         #color: warning
@@ -38,9 +38,9 @@
       tags: deploy-sites
       local_action:
         module: slack
-        domain: "neuranet-dev.slack.com"
+        domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
-        msg: ":rocket: Started deploying flexitive.com and neuranet.com to {{target}}"
+        msg: ":rocket: Started deploying flexitive.com and deepsky.com to {{target}}"
         #color: warning
         username: "Ansible"
         icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"
@@ -155,7 +155,7 @@
     tags: deploy
     local_action:
       module: slack
-      domain: "neuranet-dev.slack.com"
+      domain: "deepsky-dev.slack.com"
       token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
       msg: ":star2: Finished deploying everything to {{target}}"
       #color: good
@@ -171,7 +171,7 @@
     tags: deploy_fast
     local_action:
       module: slack
-      domain: "neuranet-dev.slack.com"
+      domain: "deepsky-dev.slack.com"
       token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
       msg: ":star2: Finished fast deploying everything to {{target}}"
       #color: good
@@ -187,9 +187,9 @@
     tags: deploy-sites
     local_action:
       module: slack
-      domain: "neuranet-dev.slack.com"
+      domain: "deepsky-dev.slack.com"
       token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
-      msg: ":star2: Finished deploying flexitive.com and neuranet.com to {{target}}"
+      msg: ":star2: Finished deploying flexitive.com and deepsky.com to {{target}}"
       #color: good
       username: "Ansible"
       icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"

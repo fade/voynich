@@ -6,13 +6,12 @@
 
 "The basic assumption here is that the interlinear encoding of the
 voynich manuscript is a representation in a phonetic writing system
-indigenous to north eastern china, called Manchu. In the brave old
-world of the 21st century we can represent this in the more expressive
-IPA alphabet, or in Manchu itself, which both have codepoints in the
-UTF8 unicode encoding. This is a raw naive translator, where we
-literally swap the ascii encoding for the unicode encoding. Its
-usefulness will be determined later by people who understand human
-languages a lot better than me. -BCJO"
+indigenous to north eastern China, called Manchu. we can represent
+this in the more expressive IPA alphabet, or in Manchu itself, which
+both have codepoints in the UTF8 unicode encoding. This is a raw naive
+translator, where we literally swap the ascii encoding for the unicode
+encoding. Its usefulness will be determined later by people who
+understand human languages a lot better than me. -BCJO"
 
 (defvar *tbase* (merge-pathnames "SourceCode/lisp/voynich/voyn_101/" (user-homedir-pathname))
   "this directory holds the voyn_101 voynich transliteration.")

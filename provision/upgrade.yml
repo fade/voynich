@@ -40,7 +40,7 @@
         module: slack
         domain: "deepsky-dev.slack.com"
         token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
-        msg: ":rocket: Started deploying flexitive.com and deepsky.com to {{target}}"
+        msg: ":rocket: Started deploying tesseract.com and deepsky.com to {{target}}"
         #color: warning
         username: "Ansible"
         icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"
@@ -79,9 +79,9 @@
       when: "'webservers' in group_names"
   roles:
     - { role: common }
-    - { role: flexitive-web, when: "'webservers' in group_names" }
-    - { role: flexitive-worker, when: "'workers' in group_names" }
-    - { role: flexitive-sse, when: "'sseservers' in group_names" }
+    - { role: tesseract-web, when: "'webservers' in group_names" }
+    - { role: tesseract-worker, when: "'workers' in group_names" }
+    - { role: tesseract-sse, when: "'sseservers' in group_names" }
   post_tasks:
     - name: Instance Register (Application LB)
       tags:
@@ -126,9 +126,9 @@
       when: "'webservers' in group_names"
   roles:
     - { role: common }
-    - { role: flexitive-web, when: "'webservers' in group_names" }
-    - { role: flexitive-worker, when: "'workers' in group_names" }
-    - { role: flexitive-sse, when: "'sseservers' in group_names" }
+    - { role: tesseract-web, when: "'webservers' in group_names" }
+    - { role: tesseract-worker, when: "'workers' in group_names" }
+    - { role: tesseract-sse, when: "'sseservers' in group_names" }
   post_tasks:
     - name: Instance Register (Application LB)
       tags:
@@ -189,7 +189,7 @@
       module: slack
       domain: "deepsky-dev.slack.com"
       token: "T04PKQH6X/B04QTTJMU/36bVNusqg8qdBCdE6oq1BT43"
-      msg: ":star2: Finished deploying flexitive.com and deepsky.com to {{target}}"
+      msg: ":star2: Finished deploying tesseract.com and deepsky.com to {{target}}"
       #color: good
       username: "Ansible"
       icon_url: "http://cdn2.hubspot.net/hub/330046/file-764918166-png/Official_Logos/ansible_circleA_black_small.png?t=1431372330343"

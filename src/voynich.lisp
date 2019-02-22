@@ -16,15 +16,15 @@ understand human languages a lot better than me. -BCJO"
 (defvar *tbase* (merge-pathnames "SourceCode/lisp/voynich/voyn_101/" (user-homedir-pathname))
   "this directory holds the voyn_101 voynich transliteration.")
 
+(defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*)
+  "a table of codepoint fixups, applied before the principal gonkulation pass.")
+
 (defvar *voytrans* (merge-pathnames "voytrans1.23.txt" *tbase*)
   "this is the path to the actual voyn_101 transliteration file.")
 
 (defvar *voygroup* (merge-pathnames "voygroup_UTF-8.txt" *tbase*))
 
 (defvar *voyscript* (merge-pathnames "voyn_101.txt" *tbase*))
-
-(defvar *pretrans* (merge-pathnames "pretrans.txt" *tbase*)
-  "a table of codepoint fixups, applied before the principal gonkulation pass.")
 
 (defparameter *html-template*
   (alexandria:read-file-into-string

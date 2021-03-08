@@ -6,7 +6,7 @@
 
   :version "0.3"
   :author "Brian O'Reilly <fade@deepsky.com>"
-  :license "LLGPL"
+  :license "GPL v3 or later."
   :serial t
   :depends-on (#:split-sequence
                #:alexandria

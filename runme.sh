@@ -53,7 +53,7 @@ echo "(ignore-errors (require 'sb-aclrepl))
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
-    (message "Loading/Using quicklisp, slynk etc....")
+    (format t "~2&Loading/Using quicklisp, slynk etc....~2%")
     (load quicklisp-init)))
 
 (use-package :ql)

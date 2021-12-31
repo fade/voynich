@@ -10,7 +10,7 @@ export TARG="~/SourceCode"
 
 cd $HOME
 
-mkdir -p $TARG/lisp && cd $TARG/lisp
+mkdir -p "$TARG/lisp" && cd "$TARG/lisp"
 
 git clone https://github.com/fade/voynich.git
 

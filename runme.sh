@@ -42,7 +42,7 @@ EOF
 # this is an sbcl init file.
 
 cat <<EOF > ~/.sbclrc
-echo "(ignore-errors (require 'sb-aclrepl))
+(ignore-errors (require 'sb-aclrepl))
 
 (when (find-package 'sb-aclrepl)
   (push :aclrepl cl:*features*))

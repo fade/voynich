@@ -23,6 +23,15 @@ else
   git clone https://github.com/fade/voynich.git
 fi
 
+if [[ -d "$TARG/lisp/clon" ]];
+then
+  cd "$TARG/lisp/clon"
+  git checkout master &&
+  git fetch --all &&
+  git pull origin master
+else
+  git clone https://www.lrde.epita.fr/~didier/software/lisp/clon/clon.git
+fi
 
 cd &&
 

@@ -386,36 +386,36 @@ debugging the xlation matrix a little clearer."
         (format t "[Done]~%"))))
 
 #|This synopsis establishes both the CLIui for this application, and provides for the help string.|#
-(defsynopsis (:postfix "BONK ... ")
-  (text :contents "A tool for transliteration, initially of the Voynich Manuscript.")
-  (group (:header "Immediate exit options:")
-         (flag :short-name "h" :long-name "help"
-               :description "Print this help and exit.")
-         (flag :short-name "v" :long-name "version"
-               :description "Print version number and exit."))
-  (group (:header "Path Options")
-         (path :long-name "outputdir"
-               :short-name "o"
-               :description "Path of the directory to contain gonk output. "
-               :argument-name "OUTPUTDIR"
-               :type :directory
-               :default-value #P "/tmp/")))
+;; (defsynopsis (:postfix "BONK ... ")
+;;   (text :contents "A tool for transliteration, initially of the Voynich Manuscript.")
+;;   (group (:header "Immediate exit options:")
+;;          (flag :short-name "h" :long-name "help"
+;;                :description "Print this help and exit.")
+;;          (flag :short-name "v" :long-name "version"
+;;                :description "Print version number and exit."))
+;;   (group (:header "Path Options")
+;;          (path :long-name "outputdir"
+;;                :short-name "o"
+;;                :description "Path of the directory to contain gonk output. "
+;;                :argument-name "OUTPUTDIR"
+;;                :type :directory
+;;                :default-value #P "/tmp/")))
 
-(defun -main (&optional (argv nil))
-  (declare (ignorable argv))
-  (make-context)
-  ;; (format t "~& ~D ARGV :: ~{~A~^ ~}~%" (length argv) argv)
-  (cond ((getopt :short-name "h")
-         (help)
-         (exit 0))
-        ((getopt :short-name "v")
-         (format t "Lisp: ~A, Version: ~A~%" (lisp-implementation-type) (lisp-implementation-version))
-         (exit 0)))
-  (let* ((output-dir-path (make-pathname :defaults  (getopt :short-name "o"))))
-    (format t "~&Output directory: ~A~%" output-dir-path)
-    (load-table)
-    (run-this-html-function :targ output-dir-path)
-    (run-this-gloss-function :targ output-dir-path)
-    (run-this-gonk-function :targ output-dir-path)
-    (run-this-simple-gonk-function :targ output-dir-path)))
+;; (defun -main (&optional (argv nil))
+;;   (declare (ignorable argv))
+;;   (make-context)
+;;   ;; (format t "~& ~D ARGV :: ~{~A~^ ~}~%" (length argv) argv)
+;;   (cond ((getopt :short-name "h")
+;;          (help)
+;;          (exit 0))
+;;         ((getopt :short-name "v")
+;;          (format t "Lisp: ~A, Version: ~A~%" (lisp-implementation-type) (lisp-implementation-version))
+;;          (exit 0)))
+;;   (let* ((output-dir-path (make-pathname :defaults  (getopt :short-name "o"))))
+;;     (format t "~&Output directory: ~A~%" output-dir-path)
+;;     (load-table)
+;;     (run-this-html-function :targ output-dir-path)
+;;     (run-this-gloss-function :targ output-dir-path)
+;;     (run-this-gonk-function :targ output-dir-path)
+;;     (run-this-simple-gonk-function :targ output-dir-path)))
 

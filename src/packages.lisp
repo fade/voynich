@@ -9,7 +9,8 @@
    :voynich.app-utils
    :babel
    :yaclml
-   :net.didierverna.clon)
+   ;; :net.didierverna.clon
+   )
   (:export
    #:-main
    #:manuscript-line

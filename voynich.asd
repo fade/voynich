@@ -13,7 +13,8 @@
 	       #:cl-ppcre
 	       #:babel
 	       #:yaclml
-               #:net.didierverna.clon)
+               ;; #:net.didierverna.clon
+               )
   :pathname "./"
   :components ((:static-file "voynich.asd")
                (:file "app-utils")

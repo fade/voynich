@@ -18,7 +18,7 @@ then
   cd "$TARG/lisp/voynich"
   git checkout master &&
   git fetch --all &&
-  git pull origin master &&
+  git pull origin master
 else
   git clone https://github.com/fade/voynich.git
 fi

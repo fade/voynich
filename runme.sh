@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 # change this var binding to change the location of the source in your
 # home dir. if you change this you also need to change the location in
@@ -12,7 +13,16 @@ cd $HOME
 
 mkdir -p "$TARG/lisp" && cd "$TARG/lisp"
 
-git clone https://github.com/fade/voynich.git
+if [[ -d "$TARG/lisp/voynich" ]];
+then
+  cd "$TARG/lisp/voynich"
+  git checkout master &&
+  git fetch --all &&
+  git pull origin master &&
+else
+  git clone https://github.com/fade/voynich.git
+fi
+
 
 cd &&
 
@@ -20,6 +30,7 @@ cd &&
 # curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
 # echo "[Done]"
 
+mkdir -p ~/.config/common-lisp/
 
 cat <<EOF > ~/.config/common-lisp/source-registry.conf 
 ;; -*-lisp-*-

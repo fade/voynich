@@ -42,24 +42,7 @@ EOF
 # this is an sbcl init file.
 
 cat <<EOF > ~/.sbclrc
-(ignore-errors (require 'sb-aclrepl))
-
-(when (find-package 'sb-aclrepl)
-  (push :aclrepl cl:*features*))
-#+aclrepl
-(progn
-  (setq sb-aclrepl:*max-history* 100)
-  (setf (sb-aclrepl:alias \"asdc\")
-	#'(lambda (sys) (asdf:operate 'asdf:compile-op sys)))
-  (sb-aclrepl:alias \"l\" (sys) (asdf:operate 'asdf:load-op sys))
-  (sb-aclrepl:alias \"t\" (sys) (asdf:operate 'asdf:test-op sys))
-  ;; The 1 below means that two characaters (\"up\") are required
-  (sb-aclrepl:alias (\"up\" 1 \"Use package\") (package) (use-package package))
-  ;; The 0 below means only the first letter (\"r\") is required,
-  ;; such as \":r base64\"
-  (sb-aclrepl:alias (\"require\" 0 \"Require module\") (sys) (require sys))
-  (setq cl:*features* (delete :aclrepl cl:*features*)))
-
+;; -*-lisp-*-
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
                                        (user-homedir-pathname))))
@@ -71,6 +54,7 @@ cat <<EOF > ~/.sbclrc
 
 EOF
 
+rm -rf ~/quicklisp.lisp
 wget "http://beta.quicklisp.org/quicklisp.lisp"
 sbcl --no-userinit --load ~/quicklisp.lisp
 

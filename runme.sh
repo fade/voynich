@@ -7,7 +7,7 @@ set -x
 # voynich/voynich.lisp where the code looks for the translation matrix
 # and other constants. I'll probably fix that so it's more abstract in
 # future versions.
-export TARG="~/SourceCode"
+export TARG="$HOME/SourceCode"
 
 cd $HOME
 

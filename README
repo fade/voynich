@@ -2,15 +2,38 @@ See the project wiki for more details.
 
 Here are the standard functions to run once the pre-translation table and the main phonetic matrix table have been updated (/voynich/voyn_101/pretrans.txt and /voynich/voyn_101/voytrans1.23.txt respectively):
 
-$ sbcl
-CL-USER(1): (ql:quickload :voynich)
+wporquet@sapphire:~/SourceCode/lisp/voynich$ sbcl
+This is SBCL 2.1.1.debian, an implementation of ANSI Common Lisp.
+More information about SBCL is available at <http://www.sbcl.org/>.
+
+SBCL is free software, provided as is, with absolutely no warranty.
+It is mostly in the public domain; some portions are provided under
+BSD-style licenses.  See the CREDITS and COPYING files in the
+distribution for more information.
+
+Loading/Using quicklisp, slynk etc....
+
+* (ql:quickload :voynich)
+To load "voynich":
+  Load 1 ASDF system:
+    voynich
 ; Loading "voynich"
-[package voynich-user]..
+.......
 (:VOYNICH)
-CL-USER(2): (in-package :vuser)
-(load-table)
-(run-this-gonk-function)
-(run-this-gloss-function)
-(run-this-html-function)
-(sb-ext:exit)
-$ cp /tmp/voy* /home/username/public_html/voynich/
+* (in-package :vuser)
+#<PACKAGE "VOYNICH">
+* (load-table)
+T
+* (run-this-gonk-function)
+Writing gonkulated translit to /tmp/voynich-interlinear.gonk ... [Done]
+NIL
+* (run-this-gloss-function)
+Writing a glossary to /tmp/voybar.gloss ... [Done]
+NIL
+* (run-this-html-function)
+Writing html formated interlinear gonk translit to /tmp/voybar.html ... [Done]
+NIL
+* (sb-ext:exit)
+wporquet@sapphire:~/SourceCode/lisp/voynich$ cp /tmp/voy* /home/wporquet/SourceCode/lisp/voynich/html/
+wporquet@sapphire:~/SourceCode/lisp/voynich$ 
+

@@ -1,3 +1,7 @@
+See the project wiki for more details.
+
+Here are the standard functions to run once the pre-translation table and the main phonetic matrix table have been updated (/voynich/voyn_101/pretrans.txt and /voynich/voyn_101/voytrans1.23.txt respectively):
+
 $ sbcl
 CL-USER(1): (ql:quickload :voynich)
 ; Loading "voynich"
@@ -9,4 +13,4 @@ CL-USER(2): (in-package :vuser)
 (run-this-gloss-function)
 (run-this-html-function)
 (sb-ext:exit)
-$ cp /tmp/voy* /home/merovech/public_html/voynich/
+$ cp /tmp/voy* /home/username/public_html/voynich/

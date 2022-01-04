@@ -9,13 +9,13 @@
 49@1@120@x (š) common form
 50@2@100@d allograph with centre hook above variant 1 <https://en.wikipedia.org/wiki/Hook_above>
 51@3@100@d allograph with centre hook above variant 2 <https://en.wikipedia.org/wiki/Hook_above>
-52@4@110,105@n (ɲ) <https://en.wikipedia.org/wiki/Voiced_palatal_nasal>
+52@4@110@n (ɲ) <https://en.wikipedia.org/wiki/Voiced_palatal_nasal>
 53@5@100@d allograph with right hook above <https://en.wikipedia.org/wiki/Hook_above>
 54@6@98@b allograph with gap or erosion in base
 55@7@102@f/p common form
 56@8@98@b common form like cursive Greek beta (ϐ) <https://en.wikipedia.org/wiki/Beta#Typography>
 57@9@105@i/y common form like Arabic waw (و) <https://en.wikipedia.org/wiki/Waw_(letter)#Arabic_w%C4%81w>
-65@A@105@u/v(ū)/w allograph
+65@A@117@u/v(ū)/w allograph
 66@B@116,116,63@tt? ligature?
 67@C@116@t (th) common form
 68@D@116,63@t? ligature?

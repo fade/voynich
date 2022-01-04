@@ -14,10 +14,10 @@
 54@6@98@b allograph with gap or erosion in base
 55@7@102@f/p common form
 56@8@98@b common form like cursive Greek beta (ϐ) <https://en.wikipedia.org/wiki/Beta#Typography>
-57@9@105@i/y common form like Arabic waw (و) <https://en.wikipedia.org/wiki/Waw_(letter)#Arabic_w%C4%81w>
+57@9@105@i/y common form like closed Greek upsilon <https://en.wikipedia.org/wiki/Upsilon> or Arabic waw (و) <https://en.wikipedia.org/wiki/Waw_(letter)#Arabic_w%C4%81w>
 65@A@117@u/v(ū)/w allograph
 66@B@116,116,63@tt? ligature?
-67@C@116@t (th) common form
+67@C@116@t common form
 68@D@116,63@t? ligature?
 69@E@63@? glyph radical often used for part of an eroded glyph
 70@F@103@g single stem form with curled stroke
@@ -50,9 +50,9 @@
 102@f@113@q (c) single stem form with curved stroke
 103@g@104@h single stem form with curved stroke
 104@h@113@q (c) common form
-105@i@114@r (uvular) common form, when doubled makes ng (ŋ)
+105@i@114@r (uvular) common form, when doubled makes ng (ŋ), when tripled makes rngg (rŋ)
 106@j@104@h single stem form without curved stroke
-107@k@104@h double stem form
+107@k@104@h double stem form written like a cursive Greek heta <https://en.wikipedia.org/wiki/Heta>
 108@l@103,63@g? g ligature?
 109@m@110,103,103@ngg (ŋg) ligature
 110@n@114,103@rg ligature
@@ -112,8 +112,8 @@
 194@Â‚@111@o allograph with horn <https://en.wikipedia.org/wiki/Horn_(diacritic)>
 195@Ã@111@o allograph with macron <https://en.wikipedia.org/wiki/Macron_(diacritic)>
 196@Ä@111@o (oo) allograph with inverted breve <https://en.wikipedia.org/wiki/Inverted_breve>
-197@Å@95@_ glyph radical with hook
-198@Æ@95@glyph radical
+197@Å@63@? glyph radical with hook
+198@Æ@63@? glyph radical
 199@Ç@63@? "left-walking" quincunx (⚻)
 200@È@63@? glyph radical, possibly part of a phonetic glyph for Mandarin loanword
 201@É@63@? dotted bent line

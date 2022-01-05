@@ -167,11 +167,6 @@ understand human languages a lot better than me. -BCJO"
 	 (line (cdr bl)))
     (make-instance 'manuscript-line :index idx :rawline line)))
 
-;; (defun breakgroup (line)
-;;   (if (stringp line)
-;;       (let* ((breakup (cl-ppcre:split "(^.*\,.*)" line :with-registers-p t))
-;; 	     ()))))
-
 (defun make-line-objects (filespec)
   "return a list of manuscript-line objects representing each line of
    the voyn_101 text located by filespec"
@@ -239,7 +234,6 @@ understand human languages a lot better than me. -BCJO"
               (let ((from fromstr)
                     (to (format nil "~A" (tochar (string->number tostr)))))
                 (setf vline (regex-replace-all from vline to)))
-              
       finally (return vline))))
 
 (defun load-table ()
@@ -250,7 +244,6 @@ understand human languages a lot better than me. -BCJO"
   (setf (gethash (format nil "~A" (char-code #\=)) *transtable*) (list (char-code #\Newline) (char-code #\Newline)))
   (loop for i from 1
      for (ascii . utf8) in (readvoy->codepoints *voytrans*)
-     ;for stripped = (strip-spaces )
      do (let ((a ascii)
 	      (u utf8))
           ;; vv Devel chaff. vv
@@ -265,8 +258,7 @@ understand human languages a lot better than me. -BCJO"
 	  (if (and (listp u) (>= (length u) 2))
 	      (setf (gethash a *transtable*) (mapcar #'string->number u))
 	      (setf (gethash a *transtable*) (string->number u))
-	      ) ; (format t "~S ||  ~{ ~S ~}~%" a (mapcar #'parse-integer u))
-	  ))
+	      )))
   (setf *tloaded* t)
   *tloaded*)
 

@@ -2,7 +2,7 @@
 ;;;; voynich.asd
 
 (defsystem #:voynich
-  :description "A program to manipulate the encoding of the voynich manuscript to reflect Banasek's theory of the text as the phonetic description of a phonetic trade language based on Manchu."
+  :description "A program to manipulate the encoding of the voynich manuscript to reflect Banasek's theory of the text as the phonetic description of a trade language based on Manchu."
 
   :version "0.3"
   :author "Brian O'Reilly <fade@deepsky.com>"

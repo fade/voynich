@@ -95,7 +95,7 @@ understand human languages a lot better than me. -BCJO"
       for x = (read-line s nil)
       while x
       for y = (let* ((n (split-sequence:split-sequence #\@ x))
-                         (o (strip-spaces n)))
+                     (o (strip-spaces n)))
                 ;; (format t "~&~S|~S~%" x o)
                 (cond
                   ((string= (first o) "")
@@ -224,16 +224,19 @@ understand human languages a lot better than me. -BCJO"
           :finally (return string))))
 
 (defun pretran (voyline)
+  "for every translation pair in *pretranstable*, perform the given
+substitution on a copy of voyline, finally, return the (potentially)
+changed line."
   (let ((*break-on-signals* t))
     (loop
       ;; for i from 1
       with vline = (copy-seq voyline)
       for (fromstr . tostr) in *pretranstable*
       when (and fromstr tostr)
-           do
-              (let ((from fromstr)
-                    (to (format nil "~A" (tochar (string->number tostr)))))
-                (setf vline (regex-replace-all from vline to)))
+        do
+           (let ((from fromstr)
+                 (to (format nil "~A" (tochar (string->number tostr)))))
+             (setf vline (regex-replace-all from vline to)))
       finally (return vline))))
 
 (defun load-table ()

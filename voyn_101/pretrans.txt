@@ -1,5 +1,9 @@
-99,99@cc@67@C
-73,122@Iz@77@M
-105,80@iP@113@q
-105,105@ii@73@I
-69,111@Eo@220@Ü
+73,122@Iz@77@M correct ng+rs to r+ng+s
+105,80@iP@113@q correct r+rn to ng+n
+105,105@ii@73@I correct r+r to ng
+69,111@Eo@220@Ü correct glyph radical + o to xo ligature
+69,104@Eh@72@H correct glyph radical + q to g
+69,107@Ek@75@K correct glyph radical + double stem h to j
+69,106@Ej@74@J correct glyph radical + single stem h to j
+118,99@vc@72@H correct eroded double stem g + glyph radical (in context) to double stem g
+99,99@cc@67@C correct double k to t (same as ASCII C glyph)

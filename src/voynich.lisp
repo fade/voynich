@@ -241,27 +241,27 @@ changed line."
 
 (defun load-table ()
   "load the hash table *transtable* with the translation matrix we plan to use."
-  (setf (gethash (format nil "~A" (char-code #\.)) *transtable*) (char-code #\Space))
-  (setf (gethash (format nil "~A" (char-code #\,)) *transtable*) (char-code #\Space))
-  (setf (gethash (format nil "~A" (char-code #\-)) *transtable*) (char-code #\Newline))
-  (setf (gethash (format nil "~A" (char-code #\=)) *transtable*) (list (char-code #\Newline) (char-code #\Newline)))
+  (setf (gethash (format nil "~A" (char-code #\.)) *transtable*) (char-code #\Space)
+        (gethash (format nil "~A" (char-code #\,)) *transtable*) (char-code #\Space)
+        (gethash (format nil "~A" (char-code #\-)) *transtable*) (char-code #\Newline)
+        (gethash (format nil "~A" (char-code #\=)) *transtable*) (list (char-code #\Newline) (char-code #\Newline)))
   (loop for i from 1
-     for (ascii . utf8) in (readvoy->codepoints *voytrans*)
-     do (let ((a ascii)
-	      (u utf8))
-          ;; vv Devel chaff. vv
-	  ;; (format t "======[ CodePoint: ~D ]======~%" i)
-	  ;; (format t "~A~%" a)
-	  ;; (format t "~A~%" u)
-	  ;; (force-output)
-	  (if (and u (>= (length u) 5)) ;; this codepoint maps to more than one unicode char.
-	      (progn
-		;; (format t "[[ ~A ]]~%" u)
-		(setf u (split-sequence #\, u))))
-	  (if (and (listp u) (>= (length u) 2))
-	      (setf (gethash a *transtable*) (mapcar #'string->number u))
-	      (setf (gethash a *transtable*) (string->number u))
-	      )))
+        for (ascii . utf8) in (readvoy->codepoints *voytrans*)
+        do (let ((a ascii)
+                 (u utf8))
+             ;; vv Devel chaff. vv
+             ;; (format t "======[ CodePoint: ~D ]======~%" i)
+             ;; (format t "~A~%" a)
+             ;; (format t "~A~%" u)
+             ;; (force-output)
+             (if (and u (>= (length u) 5)) ;; this codepoint maps to more than one unicode char.
+                 (progn
+                   ;; (format t "[[ ~A ]]~%" u)
+                   (setf u (split-sequence #\, u))))
+             (if (and (listp u) (>= (length u) 2))
+                 (setf (gethash a *transtable*) (mapcar #'string->number u))
+                 (setf (gethash a *transtable*) (string->number u))
+                 )))
   (setf *tloaded* t)
   *tloaded*)
 
